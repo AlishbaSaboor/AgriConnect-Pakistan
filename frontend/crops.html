@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Management - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Crops</a></li>
+                <li><a href="storage.html">Storage</a></li>
+                <li><a href="transport.html">Transport</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Crop Management</h2>
+
+            <div class="action-buttons" id="farmerActions" style="display:none;">
+                <button class="btn btn-primary" onclick="showAddCropForm()">Add New Crop</button>
+            </div>
+
+            <div class="form-container" id="addCropForm" style="display:none;">
+                <h3>Add New Crop</h3>
+                <form id="cropForm">
+                    <div class="form-group">
+                        <label for="cropType">Crop Type</label>
+                        <select id="cropType" required>
+                            <option value="">-- Select Crop --</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="rice">Rice</option>
+                            <option value="potato">Potato</option>
+                            <option value="tomato">Tomato</option>
+                            <option value="onion">Onion</option>
+                            <option value="mango">Mango</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="sugarcane">Sugarcane</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity">Quantity (kg)</label>
+                        <input type="number" id="quantity" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quality">Quality Grade</label>
+                        <select id="quality" required>
+                            <option value="">-- Select Quality --</option>
+                            <option value="A">A - Premium</option>
+                            <option value="B">B - Standard</option>
+                            <option value="C">C - Basic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pricePerKg">Price per Kg (PKR)</label>
+                        <input type="number" id="pricePerKg" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="harvestDate">Harvest Date</label>
+                        <input type="date" id="harvestDate" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Crop</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAddCropForm()">Cancel</button>
+                </form>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="searchCrop" placeholder="Search crops by type...">
+                <button class="btn btn-secondary" onclick="searchCrops()">Search</button>
+            </div>
+
+            <div class="table-container">
+                <h3>Available Crops</h3>
+                <table id="cropsTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Type</th>
+                            <th>Quantity (kg)</th>
+                            <th>Quality</th>
+                            <th>Price/kg (PKR)</th>
+                            <th>Farmer</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cropsTableBody">
+                        <tr>
+                            <td colspan="7">No crops available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/crops.js"></script>
+</body>
+</html>

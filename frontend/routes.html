@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Finder - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Crops</a></li>
+                <li><a href="storage.html">Storage</a></li>
+                <li><a href="transport.html">Transport</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>🗺️ Shortest Route Finder (Dijkstra's Algorithm)</h2>
+
+            <div class="algorithm-section">
+                <div class="form-container">
+                    <h3>Find Shortest Path</h3>
+                    <form id="routeForm">
+                        <div class="form-group">
+                            <label for="startCity">Start City</label>
+                            <select id="startCity" required>
+                                <option value="">-- Select City --</option>
+                                <option value="Lahore">Lahore</option>
+                                <option value="Karachi">Karachi</option>
+                                <option value="Islamabad">Islamabad</option>
+                                <option value="Multan">Multan</option>
+                                <option value="Faisalabad">Faisalabad</option>
+                                <option value="Peshawar">Peshawar</option>
+                                <option value="Quetta">Quetta</option>
+                                <option value="Sialkot">Sialkot</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="endCity">Destination City</label>
+                            <select id="endCity" required>
+                                <option value="">-- Select City --</option>
+                                <option value="Lahore">Lahore</option>
+                                <option value="Karachi">Karachi</option>
+                                <option value="Islamabad">Islamabad</option>
+                                <option value="Multan">Multan</option>
+                                <option value="Faisalabad">Faisalabad</option>
+                                <option value="Peshawar">Peshawar</option>
+                                <option value="Quetta">Quetta</option>
+                                <option value="Sialkot">Sialkot</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Calculate Shortest Route</button>
+                    </form>
+
+                    <div id="routeResult" class="result-box" style="display:none;">
+                        <h3>Route Information</h3>
+                        <p><strong>Start:</strong> <span id="resultStart"></span></p>
+                        <p><strong>Destination:</strong> <span id="resultEnd"></span></p>
+                        <p><strong>Shortest Distance:</strong> <span id="resultDistance"></span> km</p>
+                        <p><strong>Estimated Time:</strong> <span id="resultTime"></span></p>
+                        <p><strong>Path:</strong> <span id="resultPath"></span></p>
+                        <p><strong>Algorithm Used:</strong> Dijkstra's Shortest Path Algorithm</p>
+                        <p><strong>Time Complexity:</strong> O((V + E) log V)</p>
+                    </div>
+                </div>
+
+                <div class="algorithm-explanation">
+                    <h3>📚 About Dijkstra's Algorithm</h3>
+                    <p>Dijkstra's algorithm is a graph search algorithm that finds the shortest path between nodes in a graph. It's widely used in network routing protocols and transportation planning.</p>
+                    
+                    <h4>How it Works:</h4>
+                    <ol>
+                        <li>Initialize all distances to infinity, except the start node (distance = 0)</li>
+                        <li>Mark all nodes as unvisited</li>
+                        <li>Select the unvisited node with the smallest distance</li>
+                        <li>Update distances to all neighbors</li>
+                        <li>Mark current node as visited</li>
+                        <li>Repeat until destination is reached</li>
+                    </ol>
+
+                    <h4>Time Complexity:</h4>
+                    <ul>
+                        <li><strong>With Priority Queue:</strong> O((V + E) log V)</li>
+                        <li><strong>With Array:</strong> O(V²)</li>
+                        <li>Where V = number of vertices, E = number of edges</li>
+                    </ul>
+                </div>
+
+                <div class="city-network">
+                    <h3>City Network Graph</h3>
+                    <div class="network-visual">
+                        <div class="city-node">Lahore (375 km) Islamabad</div>
+                        <div class="city-node">Lahore (342 km) Multan</div>
+                        <div class="city-node">Lahore (130 km) Faisalabad</div>
+                        <div class="city-node">Lahore (1200 km) Karachi</div>
+                        <div class="city-node">Islamabad (550 km) Multan</div>
+                        <div class="city-node">Islamabad (350 km) Faisalabad</div>
+                        <div class="city-node">Karachi (900 km) Multan</div>
+                        <div class="city-node">Multan (340 km) Faisalabad</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/routes.js"></script>
+</body>
+</html>

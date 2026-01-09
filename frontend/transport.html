@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport Services - AgriConnect Pakistan</title>    <link rel="icon" type="image/svg+xml" href="favicon.svg">    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Crops</a></li>
+                <li><a href="storage.html">Storage</a></li>
+                <li><a href="transport.html">Transport</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Transport Management</h2>
+
+            <div class="action-buttons" id="transportProviderActions" style="display:none;">
+                <button class="btn btn-primary" onclick="showAddTransportForm()">Add Transport Service</button>
+            </div>
+
+            <div class="form-container" id="addTransportForm" style="display:none;">
+                <h3>Add Transport Service</h3>
+                <form id="transportForm">
+                    <div class="form-group">
+                        <label for="transportType">Vehicle Type</label>
+                        <select id="transportType" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="truck">Truck</option>
+                            <option value="van">Van</option>
+                            <option value="refrigerated">Refrigerated Truck</option>
+                            <option value="mini_truck">Mini Truck</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transportCapacity">Capacity (kg)</label>
+                        <input type="number" id="transportCapacity" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transportRoute">Route</label>
+                        <input type="text" id="transportRoute" placeholder="e.g., Lahore-Karachi" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pricePerKm">Price per Km (PKR)</label>
+                        <input type="number" id="pricePerKm" min="1" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Transport</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAddTransportForm()">Cancel</button>
+                </form>
+            </div>
+
+            <div class="table-container">
+                <h3>Available Transport Services</h3>
+                <table id="transportTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Provider</th>
+                            <th>Type</th>
+                            <th>Capacity (kg)</th>
+                            <th>Route</th>
+                            <th>Price/km (PKR)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transportTableBody">
+                        <tr>
+                            <td colspan="7">No transport services available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tracking-section">
+                <h3>🚚 Live Transport Tracking</h3>
+                <div id="trackingInfo" class="tracking-info">
+                    <p>Select a transport service to track</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/transport.js"></script>
+</body>
+</html>

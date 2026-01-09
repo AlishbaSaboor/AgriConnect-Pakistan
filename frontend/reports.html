@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Crops</a></li>
+                <li><a href="storage.html">Storage</a></li>
+                <li><a href="transport.html">Transport</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>📊 System Reports & Analytics</h2>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>👥 User Statistics</h3>
+                    <div class="report-content">
+                        <p>Total Users: <strong id="totalUsers">0</strong></p>
+                        <p>Farmers: <strong id="totalFarmers">0</strong></p>
+                        <p>Buyers: <strong id="totalBuyers">0</strong></p>
+                        <p>Storage Owners: <strong id="totalStorageOwners">0</strong></p>
+                        <p>Transport Providers: <strong id="totalTransportProviders">0</strong></p>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>🌾 Crop Statistics</h3>
+                    <div class="report-content">
+                        <p>Total Crops Listed: <strong id="totalCropsListed">0</strong></p>
+                        <p>Total Quantity: <strong id="totalCropQuantity">0</strong> kg</p>
+                        <p>Average Price: <strong id="avgCropPrice">0</strong> PKR/kg</p>
+                        <p>Most Listed Crop: <strong id="mostListedCrop">N/A</strong></p>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>❄️ Storage Statistics</h3>
+                    <div class="report-content">
+                        <p>Total Storage Centers: <strong id="totalStorageCenters">0</strong></p>
+                        <p>Total Capacity: <strong id="totalStorageCapacity">0</strong> kg</p>
+                        <p>Available Capacity: <strong id="availableStorageCapacity">0</strong> kg</p>
+                        <p>Utilization Rate: <strong id="storageUtilization">0</strong>%</p>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>🚚 Transport Statistics</h3>
+                    <div class="report-content">
+                        <p>Total Transport Services: <strong id="totalTransportServices">0</strong></p>
+                        <p>Total Capacity: <strong id="totalTransportCapacity">0</strong> kg</p>
+                        <p>Active Deliveries: <strong id="activeDeliveries">0</strong></p>
+                        <p>Most Used Route: <strong id="mostUsedRoute">N/A</strong></p>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>💰 Financial Statistics</h3>
+                    <div class="report-content">
+                        <p>Total Transactions: <strong id="totalTransactions">0</strong></p>
+                        <p>Total Revenue: <strong id="totalRevenue">0</strong> PKR</p>
+                        <p>Cash Payments: <strong id="cashPayments">0</strong></p>
+                        <p>Digital Payments: <strong id="digitalPayments">0</strong></p>
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>⚡ System Performance</h3>
+                    <div class="report-content">
+                        <p>Average Response Time: <strong id="avgResponseTime">< 1</strong> ms</p>
+                        <p>Search Time Complexity: <strong>O(1)</strong></p>
+                        <p>Storage Allocation: <strong>O(log n)</strong></p>
+                        <p>Route Finding: <strong>O((V+E) log V)</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-structures-section">
+                <h3>📐 Data Structures & Algorithms Used</h3>
+                <div class="ds-grid">
+                    <div class="ds-card">
+                        <h4>HashMap (JavaScript Map)</h4>
+                        <p><strong>Complexity:</strong> O(1) lookup</p>
+                        <p><strong>Usage:</strong> User management, crop lookup, order indexing</p>
+                    </div>
+                    <div class="ds-card">
+                        <h4>Priority Queue (Min Heap)</h4>
+                        <p><strong>Complexity:</strong> O(log n) insertion/deletion</p>
+                        <p><strong>Usage:</strong> Optimal storage allocation</p>
+                    </div>
+                    <div class="ds-card">
+                        <h4>Graph (Adjacency List)</h4>
+                        <p><strong>Complexity:</strong> O(V + E) traversal</p>
+                        <p><strong>Usage:</strong> City network for routing</p>
+                    </div>
+                    <div class="ds-card">
+                        <h4>Queue (FIFO)</h4>
+                        <p><strong>Complexity:</strong> O(1) enqueue/dequeue</p>
+                        <p><strong>Usage:</strong> Order processing pipeline</p>
+                    </div>
+                    <div class="ds-card">
+                        <h4>Dijkstra's Algorithm</h4>
+                        <p><strong>Complexity:</strong> O((V+E) log V)</p>
+                        <p><strong>Usage:</strong> Shortest path routing</p>
+                    </div>
+                    <div class="ds-card">
+                        <h4>Greedy Algorithm</h4>
+                        <p><strong>Complexity:</strong> O(n)</p>
+                        <p><strong>Usage:</strong> Storage selection scoring</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-section">
+                <h3>Export Reports</h3>
+                <button class="btn btn-primary" onclick="exportReport('pdf')">Export as PDF</button>
+                <button class="btn btn-secondary" onclick="exportReport('csv')">Export as CSV</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/reports.js"></script>
+</body>
+</html>

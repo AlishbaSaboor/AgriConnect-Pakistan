@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <h2>Register New Account</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role">Select Role</label>
+                        <select id="role" name="role" required>
+                            <option value="">-- Select Role --</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="buyer">Buyer</option>
+                            <option value="storage_owner">Storage Owner</option>
+                            <option value="transport_provider">Transport Provider</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location/City</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <p class="form-footer">Already have an account? <a href="login.html">Login here</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api-config.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

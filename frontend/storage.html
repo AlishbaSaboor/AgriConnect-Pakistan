@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cold Storage - AgriConnect Pakistan</title>    <link rel="icon" type="image/svg+xml" href="favicon.svg">    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Crops</a></li>
+                <li><a href="storage.html">Storage</a></li>
+                <li><a href="transport.html">Transport</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>Cold Storage Management</h2>
+
+            <div class="action-buttons" id="storageOwnerActions" style="display:none;">
+                <button class="btn btn-primary" onclick="showAddStorageForm()">Add Storage Center</button>
+            </div>
+
+            <div class="form-container" id="addStorageForm" style="display:none;">
+                <h3>Add Storage Center</h3>
+                <form id="storageForm">
+                    <div class="form-group">
+                        <label for="storageName">Storage Name</label>
+                        <input type="text" id="storageName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="storageLocation">Location</label>
+                        <input type="text" id="storageLocation" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="capacity">Total Capacity (kg)</label>
+                        <input type="number" id="capacity" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <input type="number" id="temperature" min="-20" max="20" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Storage</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAddStorageForm()">Cancel</button>
+                </form>
+            </div>
+
+            <div class="algorithm-section">
+                <h3>🎯 Optimal Storage Allocation (Priority Queue Algorithm)</h3>
+                <div class="form-container">
+                    <form id="allocateStorageForm">
+                        <div class="form-group">
+                            <label for="allocateQuantity">Quantity to Store (kg)</label>
+                            <input type="number" id="allocateQuantity" min="1" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Find Best Storage</button>
+                    </form>
+                    <div id="allocationResult" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <h3>Available Storage Centers</h3>
+                <table id="storageTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Available/Total (kg)</th>
+                            <th>Temperature (°C)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storageTableBody">
+                        <tr>
+                            <td colspan="6">No storage centers available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+</body>
+</html>
