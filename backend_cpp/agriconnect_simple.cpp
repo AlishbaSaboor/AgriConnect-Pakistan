@@ -255,9 +255,9 @@ void inOrderTraversal(Crop* root) {
     if (root->available) {
         User* farmer = findUserById(root->farmerId);
         string farmerName = (farmer != nullptr) ? farmer->username : "Unknown";
-        cout << setw(8) << root->cropId << setw(12) << root->cropType 
-             << setw(8) << root->quality << setw(10) << root->pricePerKg 
-             << setw(12) << root->quantity << setw(15) << farmerName << "\n";
+        cout << setw(8) << root->cropId << setw(12) << root->cropType
+            << setw(8) << root->quality << setw(10) << root->pricePerKg
+            << setw(12) << root->quantity << setw(15) << farmerName << "\n";
     }
     inOrderTraversal(root->right);
 }
@@ -300,9 +300,9 @@ void printCropsByTypeAndBudget(Crop* root, const string& targetCrop, int maxBudg
         found = true;
         User* farmer = findUserById(root->farmerId);
         string farmerName = (farmer != nullptr) ? farmer->username : "Unknown";
-        cout << setw(8) << root->cropId << setw(8) << root->quality 
-             << setw(10) << root->pricePerKg << setw(12) << root->quantity 
-             << setw(15) << farmerName << "\n";
+        cout << setw(8) << root->cropId << setw(8) << root->quality
+            << setw(10) << root->pricePerKg << setw(12) << root->quantity
+            << setw(15) << farmerName << "\n";
     }
     printCropsByTypeAndBudget(root->right, targetCrop, maxBudget, found);
 }
@@ -620,7 +620,7 @@ void addCrop() {
     cout << "Quantity (kg): "; cin >> quantity;
     cout << "Quality (A/B/C): "; cin >> quality;
     cout << "Price per kg: "; cin >> price;
-    
+
     cout << "Expected Expiry Date: ";
     SimpleDate expiryDate = readDate();
 
@@ -647,7 +647,7 @@ void addCrop() {
 void viewAllCrops() {
     cout << "\n=== All Available Crops (Sorted by Price) ===\n";
     cout << setw(8) << "CropID" << setw(12) << "Type" << setw(8) << "Quality"
-         << setw(10) << "Price/kg" << setw(12) << "Quantity" << setw(15) << "Farmer\n";
+        << setw(10) << "Price/kg" << setw(12) << "Quantity" << setw(15) << "Farmer\n";
     cout << "==================================================================================\n";
     inOrderTraversal(cropBSTRoot);
 }
@@ -663,7 +663,7 @@ void compareCropPrices() {
 
     cout << "\n=== " << targetCrop << " Listings (Filtered by Budget) ===\n";
     cout << setw(8) << "CropID" << setw(8) << "Quality" << setw(10) << "Price/kg"
-         << setw(12) << "Quantity" << setw(15) << "Farmer\n";
+        << setw(12) << "Quantity" << setw(15) << "Farmer\n";
     cout << "==================================================================================\n";
     bool found = false;
     printCropsByTypeAndBudget(cropBSTRoot, targetCrop, maxBudget, found);
@@ -718,16 +718,16 @@ void requestCrop() {
 void viewMyOrders() {
     cout << "\n=== My Orders ===\n";
     cout << setw(8) << "OrderID" << setw(8) << "CropID" << setw(10) << "Quantity"
-         << setw(12) << "Approved" << setw(8) << "Paid" << setw(12) << "Delivered\n";
+        << setw(12) << "Approved" << setw(8) << "Paid" << setw(12) << "Delivered\n";
     cout << "==================================================================================\n";
 
     Order* curr = orderHead;
     while (curr != nullptr) {
         if (curr->buyerId == currentUserId) {
-            cout << setw(8) << curr->orderId << setw(8) << curr->cropId 
-                 << setw(10) << curr->quantity << setw(12) << (curr->farmerApproved ? "Yes" : "No")
-                 << setw(8) << (curr->paid ? "Yes" : "No")
-                 << setw(12) << (curr->delivered ? "Yes" : "No") << "\n";
+            cout << setw(8) << curr->orderId << setw(8) << curr->cropId
+                << setw(10) << curr->quantity << setw(12) << (curr->farmerApproved ? "Yes" : "No")
+                << setw(8) << (curr->paid ? "Yes" : "No")
+                << setw(12) << (curr->delivered ? "Yes" : "No") << "\n";
         }
         curr = curr->next;
     }
@@ -768,25 +768,25 @@ void viewCropRequests() {
         cout << "Only farmers can view crop requests!\n";
         return;
     }
-    
+
     cout << "\n=== Crop Requests from Buyers ===\n";
     cout << setw(8) << "OrderID" << setw(8) << "CropID" << setw(10) << "Quantity"
-         << setw(12) << "BuyerID" << setw(12) << "Status\n";
+        << setw(12) << "BuyerID" << setw(12) << "Status\n";
     cout << "=======================================================\n";
-    
+
     Order* curr = orderHead;
     bool found = false;
-    while(curr != nullptr) {
-        if(curr->farmerId == currentUserId && !curr->farmerApproved) {
+    while (curr != nullptr) {
+        if (curr->farmerId == currentUserId && !curr->farmerApproved) {
             cout << setw(8) << curr->orderId << setw(8) << curr->cropId
-                 << setw(10) << curr->quantity << setw(12) << curr->buyerId
-                 << setw(12) << "Pending\n";
+                << setw(10) << curr->quantity << setw(12) << curr->buyerId
+                << setw(12) << "Pending\n";
             found = true;
         }
         curr = curr->next;
     }
-    
-    if(!found) {
+
+    if (!found) {
         cout << "No pending crop requests.\n";
     }
 }
@@ -795,32 +795,34 @@ void approveCropRequest() {
     int orderId;
     cout << "\n=== Approve/Reject Crop Request ===\n";
     viewCropRequests();
-    
+
     cout << "\nEnter Order ID: "; cin >> orderId;
     cout << "Approve? (1=Yes / 0=No): "; int approve; cin >> approve;
-    
+
     Order* curr = orderHead;
-    while(curr != nullptr) {
-        if(curr->orderId == orderId && curr->farmerId == currentUserId && !curr->farmerApproved) {
-            if(approve == 1) {
+    while (curr != nullptr) {
+        if (curr->orderId == orderId && curr->farmerId == currentUserId && !curr->farmerApproved) {
+            if (approve == 1) {
                 Crop* crop = findCropById(cropBSTRoot, curr->cropId);
-                if(crop != nullptr && crop->quantity >= curr->quantity) {
+                if (crop != nullptr && crop->quantity >= curr->quantity) {
                     curr->farmerApproved = true;
                     curr->approvalDate = getCurrentDate();
                     crop->quantity -= curr->quantity;
-                    if(crop->quantity == 0) crop->available = false;
+                    if (crop->quantity == 0) crop->available = false;
                     cout << "Request approved! Buyer can now pay.\n";
-                } else {
+                }
+                else {
                     cout << "Insufficient crop quantity!\n";
                 }
-            } else {
+            }
+            else {
                 cout << "Request rejected.\n";
             }
             return;
         }
         curr = curr->next;
     }
-    
+
     cout << "Request not found!\n";
 }
 
@@ -833,84 +835,117 @@ void requestTransport() {
     cout << "\n=== Request Transport ===\n";
 
     if (user->role == "farmer") {
-        // Farmers transport STORED crops only (bulk support)
-        cout << "\n=== Your Stored Crops (Ready for Transport) ===\n";
+        // Farmers transport crops with ACCEPTED storage requests
+        cout << "\n=== Your Crops Accepted by Storage Centers ===\n";
         cout << setw(8) << "CropID" << setw(12) << "Type" << setw(12) << "Qty Stored"
-             << setw(15) << "Storage Center\n";
+            << setw(15) << "Storage Center\n";
         cout << "==================================================================================\n";
-        
-        // Simple display of stored crops
-        Crop* node = cropBSTRoot;
+
+        // Find all crops that have accepted storage requests for this farmer
         bool foundStored = false;
-        Crop* stack[100];
-        int stackTop = 0;
-        
-        // InOrder traversal without recursion
-        while(node != nullptr || stackTop > 0) {
-            while(node != nullptr) {
-                stack[stackTop++] = node;
-                node = node->left;
+        StorageRequest* sr = storageHead;
+
+        while (sr != nullptr) {
+            // Check if this storage request is accepted, not released, and made by current farmer
+            if (sr->accepted && !sr->released && sr->requesterId == currentUserId) {
+                // Find the crop
+                Crop* crop = findCropById(cropBSTRoot, sr->cropId);
+
+                // Display if it belongs to current farmer
+                if (crop != nullptr && crop->farmerId == currentUserId) {
+                    cout << setw(8) << crop->cropId << setw(12) << crop->cropType
+                        << setw(12) << sr->quantity << setw(15) << sr->organization << "\n";
+                    foundStored = true;
+                }
             }
-            node = stack[--stackTop];
-            
-            if(node->farmerId == currentUserId && node->storageQuantity > 0) {
-                cout << setw(8) << node->cropId << setw(12) << node->cropType
-                     << setw(12) << node->storageQuantity << setw(15) << node->storageCenter << "\n";
-                foundStored = true;
-            }
-            node = node->right;
+            sr = sr->next;
         }
-        
-        if(!foundStored) {
-            cout << "No crops in storage to transport!\n";
+
+        if (!foundStored) {
+            cout << "No crops with accepted storage requests to transport!\n";
             return;
         }
-        
+
         // Bulk input for crops
-        TransportRequest* req = new TransportRequest;
-        req->requestId = transportReqCount + 1;
-        req->cropCount = 0;
-        req->weight = 0;
-        
         cout << "\n=== Select Crops to Transport ===\n";
-        cout << "Enter crop IDs (enter 0 to finish):\n";
-        
-        int cropId;
-        while(true) {
-            cout << "Enter Crop ID: "; cin >> cropId;
-            if(cropId == 0) break;
-            
-            Crop* crop = findCropById(cropBSTRoot, cropId);
-            if(crop == nullptr || crop->farmerId != currentUserId || crop->storageQuantity == 0) {
-                cout << "Invalid crop ID or not in storage!\n";
-                continue;
+        cout << "Enter crop IDs separated by space: ";
+
+        int tempCropIds[50];
+        int tempCount = 0;
+
+        // Read all crop IDs from single line
+        string line;
+        cin.ignore();
+        getline(cin, line);
+
+        // Parse the IDs
+        int pos = 0;
+        while (pos < line.length() && tempCount < 50) {
+            // Skip spaces
+            while (pos < line.length() && line[pos] == ' ') pos++;
+            if (pos >= line.length()) break;
+
+            // Read number
+            int num = 0;
+            while (pos < line.length() && line[pos] >= '0' && line[pos] <= '9') {
+                num = num * 10 + (line[pos] - '0');
+                pos++;
             }
-            
-            cout << "Quantity to transport (max " << crop->storageQuantity << " kg): ";
-            int qty; cin >> qty;
-            
-            if(qty > crop->storageQuantity) {
-                cout << "Quantity exceeds stored amount!\n";
-                continue;
-            }
-            
-            req->cropIds[req->cropCount] = cropId;
-            req->quantities[req->cropCount] = qty;
-            req->weight += qty;
-            req->cropCount++;
+            tempCropIds[tempCount++] = num;
         }
-        
-        if(req->cropCount == 0) {
+
+        if (tempCount == 0) {
             cout << "No crops selected!\n";
-            delete req;
             return;
         }
-        
+
+        // Now ask for quantities and validate
+        int cropIds[50];
+        int quantities[50];
+        int validCount = 0;
+        int totalWeight = 0;
+
+        for (int i = 0; i < tempCount; i++) {
+            Crop* crop = findCropById(cropBSTRoot, tempCropIds[i]);
+            if (crop == nullptr || crop->farmerId != currentUserId || crop->storageQuantity == 0) {
+                cout << "Crop ID " << tempCropIds[i] << " invalid or not in storage - skipped\n";
+                continue;
+            }
+
+            cout << "Quantity for Crop " << tempCropIds[i] << " (max " << crop->storageQuantity << " kg): ";
+            int qty; cin >> qty;
+
+            if (qty > crop->storageQuantity || qty <= 0) {
+                cout << "Invalid quantity - skipped\n";
+                continue;
+            }
+
+            cropIds[validCount] = tempCropIds[i];
+            quantities[validCount] = qty;
+            totalWeight += qty;
+            validCount++;
+        }
+
+        if (validCount == 0) {
+            cout << "No valid crops selected!\n";
+            return;
+        }
+
         int budget;
         string organization;
-        cout << "\nBudget (Rs): "; cin >> budget;
+        cout << "\nTotal weight: " << totalWeight << " kg\n";
+        cout << "Budget (Rs): "; cin >> budget;
         cout << "Transport Organization (FastMove/AgriTrans/GreenWay): "; cin >> organization;
-        
+
+        // Create transport request
+        TransportRequest* req = new TransportRequest;
+        req->requestId = transportReqCount + 1;
+        req->cropCount = validCount;
+        req->weight = totalWeight;
+        for (int i = 0; i < validCount; i++) {
+            req->cropIds[i] = cropIds[i];
+            req->quantities[i] = quantities[i];
+        }
         req->budget = budget;
         req->organization = organization;
         req->accepted = false;
@@ -919,20 +954,21 @@ void requestTransport() {
         req->requesterId = currentUserId;
         req->requestDate = getCurrentDate();
         req->next = nullptr;
-        
+
         addTransportRequest(req);
         cout << "\nTransport request created! Request ID: " << req->requestId << "\n";
         cout << "Total crops: " << req->cropCount << "\n";
         cout << "Total weight: " << req->weight << " kg\n";
-        
-    } else if (user->role == "buyer") {
+
+    }
+    else if (user->role == "buyer") {
         // Buyers transport their orders
         int orderId, budget;
         string organization;
-        
+
         cout << "\n=== My Orders ===\n";
         viewMyOrders();
-        
+
         cout << "\nEnter Order ID: "; cin >> orderId;
 
         Order* order = orderHead;
@@ -949,10 +985,21 @@ void requestTransport() {
             cout << "Invalid order ID or not your order!\n";
             return;
         }
-        
+
+        // Check if order is approved by farmer and paid
+        if (!order->farmerApproved) {
+            cout << "Cannot request transport: Order not yet approved by farmer!\n";
+            return;
+        }
+
+        if (!order->paid) {
+            cout << "Cannot request transport: Payment not completed!\n";
+            return;
+        }
+
         Crop* crop = findCropById(cropBSTRoot, order->cropId);
         cout << "Order: " << crop->cropType << " (" << order->quantity << " kg)\n";
-        
+
         cout << "Budget (Rs): "; cin >> budget;
         cout << "Organization (FastMove/AgriTrans/GreenWay): "; cin >> organization;
 
@@ -1080,7 +1127,7 @@ void completeDelivery() {
             tr->completed = true;
 
             // Mark all crops in this transport as delivered
-            for(int i = 0; i < tr->cropCount; i++) {
+            for (int i = 0; i < tr->cropCount; i++) {
                 Order* ord = orderHead;
                 while (ord != nullptr) {
                     if (ord->cropId == tr->cropIds[i]) {
@@ -1181,6 +1228,19 @@ void requestStorage() {
     }
 
     cout << "Quantity (kg): "; cin >> quantity;
+
+    // Validate quantity against available crop quantity
+    if (quantity > crop->quantity) {
+        cout << "Error: Requested quantity (" << quantity << " kg) exceeds available crop quantity ("
+            << crop->quantity << " kg)!\n";
+        return;
+    }
+
+    if (quantity <= 0) {
+        cout << "Error: Quantity must be greater than 0!\n";
+        return;
+    }
+
     cout << "Budget (Rs): "; cin >> budget;
 
     cout << "\nAvailable Storage Centers:\n";
@@ -1196,6 +1256,7 @@ void requestStorage() {
 
     StorageRequest* req = new StorageRequest;
     req->requestId = storageReqCount + 1;
+    req->cropId = cropId;
     req->ownerId = currentUserId;
     req->cropName = crop->cropType;
     req->quantity = quantity;
@@ -1203,6 +1264,7 @@ void requestStorage() {
     req->organization = organization;
     req->accepted = false;
     req->rejected = false;
+    req->released = false;
     req->requesterId = currentUserId;
     req->next = nullptr;
 
@@ -1269,11 +1331,11 @@ void registerStorageCenter() {
     }
 
     string org = user->username;
-    
+
     // Check if organization already has a storage center
     StorageCenter* checkExisting = storageCenterHead;
-    while(checkExisting != nullptr) {
-        if(checkExisting->organization == org) {
+    while (checkExisting != nullptr) {
+        if (checkExisting->organization == org) {
             cout << "\nYou already have a storage center registered!\n";
             cout << "Organization: " << checkExisting->organization << "\n";
             cout << "Location: " << checkExisting->location << "\n";
@@ -1363,7 +1425,17 @@ void allocateStorageOptimally() {
     for (int i = 0; i < n; i++) {
         if (selected[i]) {
             requests[i]->accepted = true;
+            requests[i]->approvalDate = getCurrentDate();
             usedCapacity += requests[i]->quantity;
+
+            // Update the crop's storage information
+            Crop* crop = findCropById(cropBSTRoot, requests[i]->cropId);
+            if (crop != nullptr) {
+                crop->storageQuantity = requests[i]->quantity;
+                crop->storageCenter = org;
+                crop->quantity -= requests[i]->quantity; // Reduce available quantity
+            }
+
             cout << "  - ReqID " << requests[i]->requestId << ": "
                 << requests[i]->cropName << " (" << requests[i]->quantity
                 << " kg, Rs. " << requests[i]->budget << ")\n";
@@ -1386,7 +1458,7 @@ void viewStoredCrops() {
 
     cout << "\n=== Your Stored Crops ===\n";
     cout << setw(8) << "CropID" << setw(12) << "Type" << setw(12) << "Qty Stored"
-         << setw(12) << "Storage Ctr" << setw(15) << "Expiry Date\n";
+        << setw(12) << "Storage Ctr" << setw(15) << "Expiry Date\n";
     cout << "==================================================================================\n";
 
     Crop* node = cropBSTRoot;
@@ -1395,24 +1467,24 @@ void viewStoredCrops() {
     bool found = false;
 
     // InOrder traversal to display farmer's stored crops
-    while(node != nullptr || stackTop > 0) {
-        while(node != nullptr) {
+    while (node != nullptr || stackTop > 0) {
+        while (node != nullptr) {
             stack[stackTop++] = node;
             node = node->left;
         }
         node = stack[--stackTop];
 
-        if(node->farmerId == currentUserId && node->storageQuantity > 0) {
+        if (node->farmerId == currentUserId && node->storageQuantity > 0) {
             cout << setw(8) << node->cropId << setw(12) << node->cropType
-                 << setw(12) << node->storageQuantity << setw(12) << node->storageCenter
-                 << setw(15) << (to_string(node->expiryDate.day) + "/" + to_string(node->expiryDate.month) 
-                                 + "/" + to_string(node->expiryDate.year)) << "\n";
+                << setw(12) << node->storageQuantity << setw(12) << node->storageCenter
+                << setw(15) << (to_string(node->expiryDate.day) + "/" + to_string(node->expiryDate.month)
+                    + "/" + to_string(node->expiryDate.year)) << "\n";
             found = true;
         }
         node = node->right;
     }
 
-    if(!found) {
+    if (!found) {
         cout << "No crops in storage.\n";
     }
 }
@@ -1448,8 +1520,8 @@ void releaseStoredCrop() {
 
     // Update corresponding storage request as released
     StorageRequest* currReq = storageHead;
-    while(currReq != nullptr) {
-        if(currReq->cropId == cropId && currReq->requesterId == currentUserId && !currReq->released) {
+    while (currReq != nullptr) {
+        if (currReq->cropId == cropId && currReq->requesterId == currentUserId && !currReq->released) {
             currReq->released = true;
             currReq->releaseDate = getCurrentDate();
             break;
@@ -1507,8 +1579,8 @@ void viewMyStorageCenter() {
         if (curr->organization == org) {
             cout << "Organization: " << curr->organization << "\n";
             cout << "Location: " << curr->location << "\n";
-            cout << "Registration Date: " << curr->registrationDate.day << "/" 
-                 << curr->registrationDate.month << "/" << curr->registrationDate.year << "\n";
+            cout << "Registration Date: " << curr->registrationDate.day << "/"
+                << curr->registrationDate.month << "/" << curr->registrationDate.year << "\n";
             cout << "Total Capacity: " << curr->totalCapacity << " kg\n";
             cout << "Available Capacity: " << curr->availableCapacity << " kg\n";
             cout << "Temperature: " << curr->temperature << "°C\n";
@@ -1922,7 +1994,7 @@ void farmerMenu() {
         cout << "2. View My Crops\n";
         cout << "3. Request Cold Storage\n";
         cout << "4. View/Respond to Crop Requests\n";
-        cout << "5. Request Transport Service (Stored Crops)\n";
+        cout << "5. Request Transport Service\n";
         cout << "6. Track My Requests (Storage & Transport)\n";
         cout << "7. View My Statistics\n";
         cout << "8. Check My Notifications\n";
@@ -1947,7 +2019,8 @@ void farmerMenu() {
                 cout << "CropID\tType\tQuantity\tQuality\tPrice/kg\tDate\n";
                 cout << "---------------------------------------------------------\n";
                 printFarmerCrops(cropBSTRoot, currentUserId);
-            } else if (subChoice == 2) {
+            }
+            else if (subChoice == 2) {
                 viewStoredCrops();
                 int doRelease;
                 cout << "\nRelease a stored crop? (1=Yes, 0=No): ";
@@ -1955,7 +2028,8 @@ void farmerMenu() {
                 if (doRelease == 1) {
                     releaseStoredCrop();
                 }
-            } else if (subChoice == 3) {
+            }
+            else if (subChoice == 3) {
                 releaseStoredCrop();
             }
             break;
@@ -2019,11 +2093,18 @@ void farmerMenu() {
             }
             TransportRequest* tr = transportHead;
             while (tr != nullptr) {
-                if (tr->requesterId == currentUserId && tr->accepted) {
-                    cout << "✓ Transport request #" << tr->requestId << " accepted by " << tr->organization;
-                    if (tr->completed) cout << " and completed";
-                    cout << "\n";
-                    found = true;
+                if (tr->requesterId == currentUserId) {
+                    if (tr->accepted) {
+                        cout << "✓ Transport request #" << tr->requestId << " accepted by " << tr->organization;
+                        if (tr->completed) cout << " and completed";
+                        cout << "\n";
+                        found = true;
+                    }
+                    else if (tr->rejected) {
+                        cout << "✗ Transport request #" << tr->requestId << " rejected by " << tr->organization
+                            << " (insufficient vehicle capacity)\n";
+                        found = true;
+                    }
                 }
                 tr = tr->next;
             }
@@ -2137,35 +2218,83 @@ void transportProviderMenu() {
             viewTransportRequests();
             int reqId;
             cout << "\nEnter Request ID to respond to (0 to skip): "; cin >> reqId;
-            if(reqId != 0) {
+            if (reqId != 0) {
                 int response;
                 cout << "1. Accept  |  2. Reject: "; cin >> response;
-                if(response == 1) {
+                if (response == 1) {
                     cout << "\n=== Accept Request ===\n";
                     TransportRequest* curr = transportHead;
                     while (curr != nullptr) {
                         if (curr->requestId == reqId && !curr->accepted) {
-                            Vehicle* vehicle = assignVehicle(curr->weight, findUserById(currentUserId)->username);
-                            if (vehicle != nullptr) {
-                                curr->accepted = true;
-                                cout << "Request accepted! Vehicle " << vehicle->vehicleId
-                                    << " assigned (Capacity: " << vehicle->capacity << " kg)\n";
-                            } else {
-                                cout << "No vehicle available with sufficient capacity!\n";
+                            User* user = findUserById(currentUserId);
+                            string org = (user != nullptr) ? user->username : "";
+
+                            // Calculate how many vehicles needed
+                            int remainingWeight = curr->weight;
+                            int vehiclesAssigned = 0;
+
+                            // Try to find vehicles for this organization
+                            Vehicle* v = vehicleHead;
+                            while (v != nullptr && remainingWeight > 0) {
+                                if (v->organization == org && v->available) {
+                                    if (v->capacity >= remainingWeight) {
+                                        // This vehicle can handle all remaining weight
+                                        v->available = false;
+                                        vehiclesAssigned++;
+                                        cout << "Vehicle " << v->vehicleId << " assigned (Capacity: "
+                                            << v->capacity << " kg, carrying " << remainingWeight << " kg)\n";
+                                        remainingWeight = 0;
+                                    }
+                                    else {
+                                        // This vehicle takes partial load
+                                        v->available = false;
+                                        vehiclesAssigned++;
+                                        cout << "Vehicle " << v->vehicleId << " assigned (Capacity: "
+                                            << v->capacity << " kg, fully loaded)\n";
+                                        remainingWeight -= v->capacity;
+                                    }
+                                }
+                                v = v->next;
                             }
-                            return;
+
+                            if (remainingWeight > 0) {
+                                // Insufficient capacity - reject request and restore vehicles
+                                curr->rejected = true;
+
+                                // Restore all assigned vehicles back to available
+                                Vehicle* restoreV = vehicleHead;
+                                int restored = 0;
+                                while (restoreV != nullptr && restored < vehiclesAssigned) {
+                                    if (restoreV->organization == org && !restoreV->available) {
+                                        restoreV->available = true;
+                                        restored++;
+                                    }
+                                    restoreV = restoreV->next;
+                                }
+
+                                cout << "Request rejected: Insufficient vehicle capacity! Need " << remainingWeight
+                                    << " kg more capacity.\n";
+                                cout << "Farmer will be notified of rejection.\n";
+                            }
+                            else {
+                                curr->accepted = true;
+                                cout << "\nRequest accepted! Total " << vehiclesAssigned
+                                    << " vehicle(s) assigned for " << curr->weight << " kg\n";
+                            }
+                            break;
                         }
                         curr = curr->next;
                     }
                     cout << "Request not found or already accepted!\n";
-                } else if(response == 2) {
+                }
+                else if (response == 2) {
                     cout << "\n=== Reject Request ===\n";
                     TransportRequest* curr = transportHead;
                     while (curr != nullptr) {
                         if (curr->requestId == reqId && !curr->rejected && !curr->accepted) {
                             curr->rejected = true;
                             cout << "Request rejected!\n";
-                            return;
+                            break;
                         }
                         curr = curr->next;
                     }
@@ -2216,30 +2345,45 @@ void storageOwnerMenu() {
                 }
 
                 StorageRequest* curr = storageHead;
+                bool requestProcessed = false;
                 while (curr != nullptr) {
                     if (curr->requestId == reqId && curr->organization == org && !curr->accepted && !curr->rejected) {
                         if (action == 1) {
                             if (center == nullptr) {
                                 cout << "No storage center found!\n";
-                                return;
+                                break;
                             }
                             if (curr->quantity > center->availableCapacity) {
                                 cout << "Not enough capacity available!\n";
-                                return;
+                                break;
                             }
                             curr->accepted = true;
                             curr->approvalDate = getCurrentDate();
                             center->availableCapacity -= curr->quantity;
+
+                            // Update the crop's storage information
+                            Crop* crop = findCropById(cropBSTRoot, curr->cropId);
+                            if (crop != nullptr) {
+                                crop->storageQuantity = curr->quantity;
+                                crop->storageCenter = org;
+                                crop->quantity -= curr->quantity; // Reduce available quantity
+                            }
+
                             cout << "Request accepted and capacity updated!\n";
-                        } else if (action == 2) {
+                            requestProcessed = true;
+                        }
+                        else if (action == 2) {
                             curr->rejected = true;
                             cout << "Request rejected successfully!\n";
+                            requestProcessed = true;
                         }
-                        return;
+                        break;
                     }
                     curr = curr->next;
                 }
-                cout << "Request not found or already processed!\n";
+                if (!requestProcessed) {
+                    cout << "Request not found or already processed!\n";
+                }
             }
             break;
         }
