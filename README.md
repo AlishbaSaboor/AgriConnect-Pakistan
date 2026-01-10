@@ -9,20 +9,6 @@
 
 ---
 
-## 📋 Table of Contents
-- [Overview](#Overview)
-- [ProblemStatement](#Problem Statement)
-- [Entities](#Role)
-- [QuickStart](#Quick Start)
-- [Data Structures](#Data Structures)
-- [Algorithms](#Algorithms)
-- [Usage Scenarios](#UsageScenarios)
-- [Dependencies](#Dependencies)
-- [Contributing](#Contributing)
-- [License](#License)
-
----
-
 ## 🌾 Overview
 
 AgriConnect Pakistan is a simple, single - file C++ console application for Windows. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
