@@ -112,17 +112,6 @@ npx http-server -p 8000
 - Install Visual Studio Community (free): https://visualstudio.microsoft.com/
 - Or install Build Tools for Visual Studio
 
-**Linux:**
-```bash
-sudo apt-get install build-essential cmake g++
-```
-
-**macOS:**
-```bash
-xcode-select --install
-brew install cmake
-```
-
 ### "Visual Studio version mismatch"
 If you get an error about Visual Studio version, specify your installed version:
 ```bash
@@ -151,14 +140,11 @@ Once the backend runs, you'll see a menu:
 
 ```
 Main Menu:
-1. User Management
-2. Crop Management
-3. Storage Management
-4. Transport Management
-5. Order Queue Management
-6. Route Planning (Dijkstra)
-7. View Statistics
-8. View System Information
+1. Register
+2. Login
+3. View All Users
+4. View Statistics
+5. Find Shortest Route
 0. Exit
 ```
 
@@ -166,56 +152,17 @@ Main Menu:
 - **Username:** farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
 - **Password:** pass123 (or admin123 for admin)
 
-### Try These Features:
-1. **Route Planning (Option 6):** Enter "Lahore" and "Karachi" to see Dijkstra's algorithm in action
-2. **Storage Allocation (Option 3):** Enter a quantity to see the greedy allocation algorithm
-3. **Add Crops (Option 2):** Add new crops to the system
-4. **View Orders (Option 5):** See FIFO queue in action
-
----
-
-## Project Structure
-
-```
-AgriConnect-Pakistan/
-├── backend_cpp/           # C++ Backend Source Code
-│   ├── agriconnect.h      # Header file (data structures)
-│   ├── agriconnect.cpp    # Implementation (algorithms)
-│   └── main.cpp           # Entry point (menu system)
-│
-├── frontend/              # Frontend (Standalone)
-│   ├── *.html             # Web pages
-│   ├── css/               # Stylesheets
-│   └── js/                # JavaScript files
-│
-├── database/              # Database Schema
-│   └── schema.sql         # MySQL schema
-│
-├── CMakeLists.txt         # CMake build configuration
-├── Makefile               # Alternative build file
-├── README.md              # Project documentation
-└── CONTRIBUTING.md        # This file
-```
-
 ---
 
 ## Contributing to the Project
 
 ### Adding New Features
 
-1. **Modify the header file:**
-   - Open `backend_cpp/agriconnect.h`
-   - Add your new function declarations
-
-2. **Implement the functions:**
-   - Open `backend_cpp/agriconnect.cpp`
+1. **Implement the functions:**
+   - Open `backend_cpp/agriconnect_simple.cpp`
    - Write your implementation
 
-3. **Update the menu:**
-   - Open `backend_cpp/main.cpp`
-   - Add menu options for your feature
-
-4. **Rebuild:**
+2. **Rebuild:**
    ```bash
    cd build
    cmake --build . --config Release
@@ -242,13 +189,3 @@ mysql -u root -p < database/schema.sql
 ```
 
 ---
-
-## Need Help?
-
-- Check the [README.md](README.md) for detailed documentation
-- Review comments in source code files
-- Test with sample data (automatically loaded)
-
----
-
-**Happy Coding! 🚀**
