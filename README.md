@@ -1,6 +1,6 @@
 # AgriConnect Pakistan
 
-## Simple Agricultural Supply & Cold Chain Management (C++ Console)
+## Simple Agricultural Supply& Cold Chain Management(C++ Console)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
@@ -12,8 +12,8 @@
 ## 📋 Table of Contents
 - [Overview](#overview)
 - [Features](#features)
-- [Quick Start](#quick-start)
-- [Project Structure](#project-structure)
+- [Quick Start](#quick - start)
+- [Project Structure](#project - structure)
 - [Algorithms](#algorithms)
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
@@ -23,7 +23,7 @@
 
 ## 🌾 Overview
 
-AgriConnect Pakistan is a simple, single-file C++ console application for Windows. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
+AgriConnect Pakistan is a simple, single - file C++ console application for Windows.It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
 
 ---
 
@@ -34,25 +34,25 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 1. **Limited Access to Cold Storage** - Crops spoil before reaching markets
 2. **Lack of Transparency** - Information gaps between producers and buyers
 3. **Inefficient Transportation** - Difficulty finding optimal routes
-4. **Post-Harvest Losses** - Up to 30-40% of crops wasted
+4. **Post - Harvest Losses** - Up to 30 - 40 % of crops wasted
 
-**Solution:** A technology-driven platform using optimized algorithms and data structures.
+**Solution:**A technology - driven platform using optimized algorithms and data structures.
 
 ---
 
-## ✨ Role-Based Features
+## ✨ Role - Based Features
 
 ### 👨‍🌾 Farmer
 - Add new crops with type, quantity, quality, price
-- View own crops sorted by price (BST traversal)
+- View own crops sorted by price(BST traversal)
 - Request cold storage for crop preservation
 - Request transport services
 - Track order deliveries
 - View system statistics
 
-### 🛒 Buyer
-- View all available crops (sorted by price using BST)
-- Compare crop prices (in-order tree traversal)
+            ### 🛒 Buyer
+- View all available crops(sorted by price using BST)
+- Compare crop prices(in - order tree traversal)
 - Place orders and specify quantities
 - Pay for orders
 - Request transport services
@@ -60,77 +60,72 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 - View market analytics and reports
 
 ### ❄️ Storage Owner
-- View storage requests from farmers (Linked List)
+- View storage requests from farmers(Linked List)
 - Allocate storage optimally using Knapsack DP
 - Maximize budget utilization
 - View available storage centers and capacity
 - Monitor utilization rates
 
 ### 🚚 Transport Provider
-- View transport requests (Linked List)
+- View transport requests(Linked List)
 - Accept requests using Greedy Vehicle Assignment
 - Complete deliveries and update orders
 - Find optimal routes using Dijkstra's algorithm with Min-Heap
 - Track delivery statistics
 - View system analytics
 
----
-
+--=
 ## 🛠 Quick Start
 
 ### Windows
 
-Option 1: one-click run
+Option 1: one - click run
 
-```bat
+```
 run_simple.bat
 ```
 
-Option 2: compile manually (MinGW or MSVC build tools)
+Option 2: compile manually(MinGW or MSVC build tools)
 
-```bat
+```
 cd backend_cpp
-g++ -std=c++17 -Wall -Wextra -O2 -o agriconnect.exe agriconnect_simple.cpp
+g++ - std = c++17 - Wall - Wextra - O2 - o agriconnect.exe agriconnect_simple.cpp
 agriconnect.exe
 ```
-
-Data is saved to text files in the `backend` folder when the console app runs.
 
 ---
 
 ## 🔢 Algorithms & Data Structures
 
 ### Data Structures
-- **Hash Table** (User lookup): O(1) average username search with chaining
-- **Binary Search Tree** (Crops): O(log n) insertion, automatic price sorting, in-order traversal
-- **Linked Lists** (Orders, Transport, Storage, Vehicles, Centers): dynamic growth, no size limits
-- **Adjacency List** (City network): space-efficient graph representation
-- **Min-Heap** (Dijkstra's priority queue): efficient distance extraction
+- **Hash Table * *(User lookup) : O(1) average username search with chaining
+- **Binary Search Tree * *(Crops) : O(log n) insertion, automatic price sorting, in - order traversal
+- **Linked Lists * *(Orders, Transport, Storage, Vehicles, Centers) : dynamic growth, no size limits
+- **Adjacency List * *(City network) : space - efficient graph representation
+- **Min - Heap * *(Dijkstra's priority queue): efficient distance extraction
 
 ### Algorithms
-- **Bubble Sort**: Compare crop prices (O(n²), simple, educational)
-- **Greedy First-Fit**: Assign vehicles to transport requests (O(n))
-- **0/1 Knapsack (DP)**: Optimal storage allocation to maximize budget (O(n×W))
-- **Dijkstra with Min-Heap**: Find shortest routes between cities (O((V+E)log V))
+- **Greedy First - Fit * *: Assign vehicles to transport requests(O(n))
+- **0 / 1 Knapsack(DP) * *: Optimal storage allocation to maximize budget(O(n×W))
+- **Dijkstra with Min - Heap * *: Find shortest routes between cities(O((V + E)log V))
 
 ---
 
 ## 📁 Project Structure
 
 ```
-AgriConnect-Pakistan/
-├── backend_cpp/
+AgriConnect - Pakistan /
+├── backend_cpp /
 │   └── agriconnect_simple.cpp      # Optimized C++ backend with all data structures
-├── frontend/                       # Static HTML/CSS/JS frontend
+├── frontend / # Static HTML / CSS / JS frontend
 │   ├── index.html, login.html, register.html
 │   ├── dashboard.html, crops.html, storage.html
 │   ├── transport.html, routes.html, reports.html
-│   ├── css/style.css
+│   ├── css / style.css
 │   └── js/*.js
 ├── database/
 │   └── schema.sql
 ├── run_simple.bat                  # Windows build/run
-├── run_simple.sh                   # Linux/macOS build/run
 ├── README.md                       # Project overview
 └── CONTRIBUTING.md                 # Build instructions
 ```
@@ -168,7 +163,7 @@ Password: pass123 (or admin123 for admin)
 
 ```
 Main Menu → 5 (Find Shortest Route)
-Enter start city: Lahore
+                Enter start city: Lahore
 Enter destination: Karachi
 
 Output:
@@ -210,50 +205,7 @@ Main Menu → Login as buyer → Orders menu → View All Orders
 Output: Shows all pending orders in FIFO sequence
 Position 1: Order ID 1 | User: buyer1 | Crop ID: 2 | Qty: 1000 kg
 Position 2: Order ID 2 | User: buyer1 | Crop ID: 3 | Qty: 500 kg
-...
 ```
-
-### Using Data Structures
-
-#### MAP Usage (O(log n) lookup)
-```cpp
-// Accessing user data
-map<string, User> users;
-User user = users["farmer1"];  // O(log n)
-```
-
-#### SET Usage (O(log n) insertion)
-```cpp
-// Role categorization
-set<string> farmers;
-farmers.insert("farmer1");  // O(log n)
-```
-
-#### DEQUE Usage (O(1) operations)
-```cpp
-// Order queue
-deque<Order> orders;
-orders.push_back(newOrder);  // O(1) enqueue
-Order first = orders.front(); // O(1) access
-orders.pop_front();          // O(1) dequeue
-```
-
-#### PRIORITY QUEUE Usage (O(log n) operations)
-```cpp
-// Storage allocation
-priority_queue<PQElement> pq;
-pq.push({score, storageId});  // O(log n)
-PQElement best = pq.top();    // O(1)
-pq.pop();                     // O(log n)
-```
-
-#### GRAPH Usage (Adjacency List)
-```cpp
-// City network
-map<string, vector<Edge>> cityGraph;
-cityGraph["Lahore"] = {{{"Islamabad", 375}, {"Multan", 342}}};
-```
-
 ---
 
 ## 📦 Dependencies
@@ -272,15 +224,7 @@ cityGraph["Lahore"] = {{{"Islamabad", 375}, {"Multan", 342}}};
 
 ---
 
-## 🎓 Notes
-
-- Code is in one file: [backend_cpp/agriconnect_simple.cpp](backend_cpp/agriconnect_simple.cpp)
-- Algorithms are implemented clearly for learning (Bubble Sort, Greedy, Knapsack)
-
----
-
 ## 🤝 Contributing
-
 See [CONTRIBUTING.md](CONTRIBUTING.md) for build/run instructions and contribution guidelines.
 
 ---
@@ -290,29 +234,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for build/run instructions and contributi
 MIT License - Copyright (c) 2026 AgriConnect Pakistan
 
 ---
-
-## 📞 Support
-
-For questions or issues:
-- Check [CONTRIBUTING.md](CONTRIBUTING.md) for build help
-- Review code comments in source files
-- Contact: support@agriconnect.pk
-
----
-
-## 🎯 Key Highlights
-
-✨ **Educational Value** - Clear implementations of data structures and algorithms
-✨ **Production Ready** - Professional C++ code with proper structure
-✨ **Well Documented** - Extensive comments and complexity analysis
-✨ **Windows-First** - Built and tested for Windows
-✨ **No Dependencies** - Pure STL implementation
-✨ **Interactive** - Console-based menu system
-✨ **Extensible** - Easy to add new features
-
----
-
-**Version:** 1.0.0
-**Last Updated:** January 2026
-**Language:** C++17
-**Status:** Ready to Use ✓
