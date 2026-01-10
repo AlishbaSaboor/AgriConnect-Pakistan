@@ -1,24 +1,21 @@
 # AgriConnect Pakistan
 
-## Smart Agricultural Supply & Cold Chain Management System
+## Simple Agricultural Supply & Cold Chain Management (C++ Console)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
-![Version](https://img.shields.io/badge/version-2.0.0-blue)
-![Python](https://img.shields.io/badge/Python-Flask-blue)
-![Frontend](https://img.shields.io/badge/Frontend-HTML%2FJS%2FCSS-orange)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Language](https://img.shields.io/badge/C%2B%2B-17-orange)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
 ---
 
 ## 📋 Table of Contents
 - [Overview](#overview)
-- [Problem Statement](#problem-statement)
 - [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Data Structures & Algorithms](#data-structures--algorithms)
 - [Quick Start](#quick-start)
-- [Installation & Setup](#installation--setup)
 - [Project Structure](#project-structure)
-- [API Documentation](#api-documentation)
+- [Algorithms](#algorithms)
+- [Dependencies](#dependencies)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -26,271 +23,98 @@
 
 ## 🌾 Overview
 
-AgriConnect Pakistan is a digital platform designed to optimize agricultural supply and cold chain management. The system connects farmers, buyers, cold storage centers, and transport providers, reducing post-harvest losses and improving market access.
-
-### Key Objectives
-- Connect all stakeholders in the agricultural supply chain
-- Reduce post-harvest losses through efficient cold storage allocation
-- Optimize transport routing using advanced algorithms (Dijkstra's)
-- Provide transparent pricing and payment systems
-- Enable real-time tracking and monitoring
+AgriConnect Pakistan is a simple, single-file C++ console application. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage optimally, and transport providers accept delivery requests.
 
 ---
 
 ## 🔴 Problem Statement
 
-Agriculture forms the backbone of Pakistan's economy, but small-scale farmers face significant challenges:
+Agriculture forms the backbone of Pakistan's economy, but farmers face challenges:
 
-1. **Limited Access to Cold Storage** - Perishable crops spoil before reaching buyers
-2. **Lack of Transparency** - Middlemen exploit both farmers and buyers
-3. **Inefficient Transportation** - Difficulty finding reliable and cost-effective logistics
-4. **Post-Harvest Losses** - Up to 30-40% of crops waste due to poor infrastructure
+1. **Limited Access to Cold Storage** - Crops spoil before reaching markets
+2. **Lack of Transparency** - Information gaps between producers and buyers
+3. **Inefficient Transportation** - Difficulty finding optimal routes
+4. **Post-Harvest Losses** - Up to 30-40% of crops wasted
 
-**Solution:** A centralized, technology-driven platform connecting all stakeholders.
-
----
-
-## ✨ Features
-
-### 🔐 User Management
-- Secure registration and login for all user types
-- Role-based access control (Farmer, Buyer, Storage Owner, Transport Provider, Admin)
-- User verification system
-
-### 🌾 Crop Management
-- Farmers can list crops with type, quantity, quality grade, and price
-- Buyers can browse and search available crops
-- Quality grading system (A, B, C)
-- Real-time crop availability updates
-
-### ❄️ Cold Storage Management
-- View storage centers by location, capacity, and temperature
-- **Priority Queue Algorithm** for optimal storage allocation
-- Real-time capacity monitoring
-- Temperature tracking to maintain crop quality
-
-### 🚚 Transport Management
-- Schedule and book transport services
-- Live tracking of deliveries
-- **Dijkstra's Algorithm** for shortest route calculation
-- Vehicle capacity and route optimization
-
-### 💳 Payment System
-- Cash payment option
-- Digital payments (EasyPaisa, JazzCash, Bank Transfer)
-- Secure transaction processing
-- Payment history and receipts
-
-### 📊 Reports & Analytics
-- User statistics by role
-- Crop listing summaries
-- Storage utilization reports
-- Transport service analytics
-- Algorithm performance metrics
+**Solution:** A technology-driven platform using optimized algorithms and data structures.
 
 ---
 
-## 🛠️ Technology Stack
+## ✨ Role-Based Features
 
-### Frontend
-- **HTML5** - Structure
-- **CSS3** - Styling with responsive design
-- **Vanilla JavaScript** - Interactive functionality
-- **REST API** - Communication with backend
+### 👨‍🌾 Farmer
+- Add new crops with type, quantity, quality, price
+- View own crops sorted by price (BST traversal)
+- Request cold storage for crop preservation
+- Request transport services
+- Track order deliveries
+- View system statistics
 
-### Backend
-- **Python 3** - Modern, beginner-friendly language
-- **Flask** - Lightweight web framework
-- **In-Memory Data Structures** - No database required
-  - `dict` - HashMap for users, crops, storage, transport
-  - `set` - For filtering and unique values
-  - `heapq` - Priority queue for storage allocation
-  - `collections.deque` - Queue for order processing
-  - `dict` - Graph structure for routes
+### 🛒 Buyer
+- View all available crops (sorted by price using BST)
+- Compare crop prices (in-order tree traversal)
+- Place orders and specify quantities
+- Pay for orders
+- Request transport services
+- Track order and delivery status
+- View market analytics and reports
+
+### ❄️ Storage Owner
+- View storage requests from farmers (Linked List)
+- Allocate storage optimally using Knapsack DP
+- Maximize budget utilization
+- View available storage centers and capacity
+- Monitor utilization rates
+
+### 🚚 Transport Provider
+- View transport requests (Linked List)
+- Accept requests using Greedy Vehicle Assignment
+- Complete deliveries and update orders
+- Find optimal routes using Dijkstra's algorithm with Min-Heap
+- Track delivery statistics
+- View system analytics
+
+---
+
+## 🛠 Quick Start
+
+### Windows (recommended)
+
+```bat
+run_simple.bat
+```
+
+### Linux/macOS
+
+```bash
+chmod +x run_simple.sh
+./run_simple.sh
+```
+
+### Manual compile
+
+```bash
+cd backend_cpp
+g++ -std=c++17 -Wall -Wextra -O2 -o agriconnect agriconnect_simple.cpp
+./agriconnect
+```
+
+---
+
+## 🔢 Algorithms & Data Structures
+
+### Data Structures
+- **Hash Table** (User lookup): O(1) average username search with chaining
+- **Binary Search Tree** (Crops): O(log n) insertion, automatic price sorting, in-order traversal
+- **Linked Lists** (Orders, Transport, Storage, Vehicles, Centers): dynamic growth, no size limits
+- **Adjacency List** (City network): space-efficient graph representation
+- **Min-Heap** (Dijkstra's priority queue): efficient distance extraction
 
 ### Algorithms
-- **Dijkstra's Algorithm** - Shortest path routing (O((V+E) log V))
-- **Priority Queue (Heap)** - Storage allocation (O(log n))
-- **HashMap** - O(1) lookups for all entities
-- **BFS/Graph Traversal** - Route optimization
-
----
-
-## 📐 Data Structures & Algorithms
-
-### Data Structures Used
-
-1. **HashMap (Python dict)** - Fast lookups
-   - Time Complexity: O(1) average
-   - Usage: Users, crops, storage, transport data
-   - Example: `users_db = {}`, `crops_db = {}`
-
-2. **HashSet (Python set)** - Unique collections
-   - Time Complexity: O(1) lookup
-   - Usage: Role filtering, unique IDs
-   - Example: `farmer_ids = set()`
-
-3. **Priority Queue (heapq)** - Storage allocation
-   - Time Complexity: O(log n) insertion
-   - Usage: Finding optimal storage based on score
-   - Example: `heapq.heappush(pq, (-score, storage))`
-
-4. **Queue (collections.deque)** - Order processing
-   - Time Complexity: O(1) enqueue/dequeue
-   - Usage: FIFO order management
-   - Example: `orders_queue = deque()`
-
-5. **Graph (Adjacency List)** - City network
-   - Time Complexity: O(V + E) traversal
-   - Usage: Route finding with Dijkstra's
-   - Example: `graph = {city: {neighbor: distance}}`
-
-### Algorithms Implemented
-
-#### 1. Dijkstra's Shortest Path Algorithm
-```
-Purpose: Find shortest route between cities
-Time Complexity: O((V + E) log V)
-Space Complexity: O(V)
-
-Implementation: backend/app.py (calculate_shortest_path)
-Cities: Lahore, Karachi, Islamabad, Multan, Faisalabad, 
-        Peshawar, Quetta, Sialkot
-```
-
-#### 2. Priority Queue Storage Allocation
-```
-Purpose: Optimal cold storage selection
-Time Complexity: O(n log n) - heap operations
-Space Complexity: O(n)
-
-Scoring Formula: 
-score = available_capacity - (|temperature - 4°C| × 10)
-
-Implementation: backend/app.py (allocate_optimal_storage)
-```
-
-#### 3. HashMap Operations
-```
-Purpose: Fast CRUD operations for all entities
-Time Complexity: O(1) average
-Space Complexity: O(n)
-
-Implementation: All API endpoints use dict for storage
-```
-
----
-
-## 📦 Installation & Setup
-
-### Prerequisites
-
-1. **Python 3.8 or higher**
-   - Download: https://www.python.org/downloads/
-   - Make sure to check "Add Python to PATH" during installation
-
-2. **Web Browser**
-   - Chrome, Firefox, Edge, or Safari (latest version)
-
-### Quick Start (3 Steps)
-
-```bash
-# Step 1: Clone or download the project
-cd AgriConnect-Pakistan
-
-# Step 2: Install dependencies (one-time setup)
-pip install -r backend/requirements.txt
-
-# Step 3: Run the application
-python run.py
-```
-
-**That's it!** The browser will automatically open to http://localhost:8000
-
-- Backend API runs on: http://localhost:5000
-- Frontend UI runs on: http://localhost:8000
-- Press `Ctrl+C` to stop both servers
-
-### Manual Setup (Alternative)
-
-If you want more control:
-
-**Terminal 1 - Backend:**
-```bash
-python backend/app.py
-```
-
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
-python -m http.server 8000
-```
-
-Then open http://localhost:8000 in your browser.
-
----
-
-## 🚀 How to Run
-
-### Step 1: Start Backend Server
-
-```bash
-# In the project root directory
-python backend/app.py
-
-# You should see:
-# * Running on http://127.0.0.1:5000
-```
-
-### Step 2: Open Frontend
-
-**Option A: Direct File Access**
-1. Navigate to the `frontend` folder
-2. Double-click `index.html` to open in browser
-
-**Option B: Using Python HTTP Server (Recommended)**
-```bash
-# In a new terminal, navigate to frontend folder
-cd frontend
-
-# Start simple HTTP server
-python -m http.server 8000
-
-# Open browser to http://localhost:8000
-```
-
-**Option C: Using VS Code Live Server**
-1. Install "Live Server" extension in VS Code
-2. Right-click on `frontend/index.html`
-3. Select "Open with Live Server"
-
-### Step 3: Use the Application
-
-**Default Admin Credentials:**
-- Username: `admin`
-- Password: `admin123`
-
-**Sample Data:**
-- Pre-loaded with sample users, crops, storage, and transport data
-- You can also register new users
-
-### API Endpoints
-
-Backend runs on `http://localhost:5000/api`
-
-**Available Endpoints:**
-- `POST /api/register` - Register new user
-- `POST /api/login` - User login
-- `GET /api/crops` - Get all crops
-- `POST /api/crops` - Add new crop
-- `GET /api/storage` - Get all storage centers
-- `POST /api/storage/allocate` - Allocate optimal storage (Priority Queue)
-- `GET /api/transport` - Get transport services
-- `POST /api/routes/shortest` - Calculate shortest path (Dijkstra's)
-- `GET /api/orders` - Get orders queue
-- `POST /api/orders` - Add order to queue
-- `GET /api/stats` - Get system statistics
-- `GET /api/info` - Get algorithm information
+- **Bubble Sort**: Compare crop prices (O(n²), simple, educational)
+- **Greedy First-Fit**: Assign vehicles to transport requests (O(n))
+- **0/1 Knapsack (DP)**: Optimal storage allocation to maximize budget (O(n×W))
+- **Dijkstra with Min-Heap**: Find shortest routes between cities (O((V+E)log V))
 
 ---
 
@@ -298,324 +122,207 @@ Backend runs on `http://localhost:5000/api`
 
 ```
 AgriConnect-Pakistan/
-│
-├── backend/
-│   ├── app.py                  # Flask REST API server
-│   └── requirements.txt        # Python dependencies
-│
-├── frontend/
-│   ├── index.html              # Home page
-│   ├── register.html           # User registration
-│   ├── login.html              # User login
-│   ├── dashboard.html          # User dashboard
-│   ├── crops.html              # Crop management
-│   ├── storage.html            # Storage management
-│   ├── transport.html          # Transport management
-│   ├── routes.html             # Route finder (Dijkstra's)
-│   ├── reports.html            # Analytics & reports
-│   │
-│   ├── css/
-│   │   └── style.css           # All styling
-│   │
-│   └── js/
-│       ├── api-config.js       # API configuration
-│       ├── main.js             # Home page logic
-│       ├── register.js         # Registration logic
-│       ├── login.js            # Login logic
-│       ├── dashboard.js        # Dashboard logic
-│       ├── crops.js            # Crop management
-│       ├── storage.js          # Storage management
-│       ├── transport.js        # Transport management
-│       ├── routes.js           # Route finder UI
-│       └── reports.js          # Reports generation
-│
-├── USER_GUIDE.md               # Complete user documentation
-└── README.md                   # This file
+├── backend_cpp/
+│   └── agriconnect_simple.cpp      # Optimized C++ backend with all data structures
+├── frontend/                       # Static HTML/CSS/JS frontend
+│   ├── index.html, login.html, register.html
+│   ├── dashboard.html, crops.html, storage.html
+│   ├── transport.html, routes.html, reports.html
+│   ├── css/style.css
+│   └── js/*.js
+├── database/
+│   └── schema.sql
+├── run_simple.bat                  # Windows build/run
+├── run_simple.sh                   # Linux/macOS build/run
+├── README.md                       # Project overview
+└── CONTRIBUTING.md                 # Build instructions
 ```
 
 ---
 
 ## 📖 Usage Guide
 
-### For Farmers
+### Main Menu
 
-1. **Register** as a Farmer
-2. **Login** to your account
-3. Navigate to **Crop Management**
-4. Click **Add New Crop**
-5. Fill in crop details (type, quantity, quality, price)
-6. Submit to list your crop
-7. View all your listed crops
+When you run the application, you'll see:
 
-### For Buyers
+```
+Main Menu:
+1. User Management
+2. Crop Management
+3. Storage Management
+4. Transport Management
+5. Order Queue Management
+6. Route Planning (Dijkstra)
+7. View Statistics
+8. View System Information
+0. Exit
+```
 
-1. **Register** as a Buyer
-2. **Login** to your account
-3. Navigate to **Crop Management**
-4. Browse available crops
-5. Search by crop type
-6. View crop details and farmer information
+### Test Credentials (Pre-loaded)
 
-### For Storage Owners
+The system comes with sample data:
 
-1. **Register** as a Storage Owner
-2. **Login** to your account
-3. Navigate to **Cold Storage Management**
-4. Click **Add Storage Center**
-5. Fill in storage details (name, location, capacity, temperature)
-6. Submit to register your storage facility
-7. Monitor storage utilization
+```
+Usernames: farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
+Password: pass123 (or admin123 for admin)
+```
 
-### For Transport Providers
+### Example Usage Scenarios
 
-1. **Register** as a Transport Provider
-2. **Login** to your account
-3. Navigate to **Transport Management**
-4. Click **Add Transport Service**
-5. Fill in transport details (type, capacity, route, pricing)
-6. Submit to register your service
-7. Track deliveries
+#### 1. Find Shortest Route (Dijkstra's Algorithm)
 
-### Using Algorithms
+```
+Main Menu → 6 (Route Planning) → 1 (Find Shortest Route)
+Enter start city: Lahore
+Enter destination: Karachi
 
-#### Storage Allocation (Priority Queue with Heap)
-1. Go to **Cold Storage Management**
-2. Scroll to **Optimal Storage Allocation**
-3. Enter quantity to store (kg)
-4. Click **Find Best Storage**
-5. Backend uses `heapq` to find optimal storage based on:
-   - Available capacity
-   - Temperature optimization (closer to 4°C is better)
-   - Algorithm score (higher is better)
+Output:
+Path: Lahore -> Multan -> Karachi
+Total Distance: 1322 km
+Estimated Time: 16h 32m
+Algorithm: Dijkstra O((V+E)logV)
+```
 
-#### Route Finding (Dijkstra's Algorithm)
-1. Go to **Route Finder**
-2. Select **Start City**
-3. Select **Destination City**
-4. Click **Calculate Shortest Route**
-5. Backend calculates shortest path using Dijkstra's algorithm
-6. View results:
-   - Shortest distance (km)
-   - Estimated time
-   - Complete path with all intermediate cities
+#### 2. Allocate Storage (Priority Queue)
 
-**For complete documentation, see [USER_GUIDE.md](USER_GUIDE.md)**
+```
+Main Menu → 3 (Storage Management) → 2 (Allocate Storage)
+Enter quantity: 2000
+
+Output:
+Storage allocated at: Karachi Agri Hub
+Available capacity: 10000 kg
+Temperature: 5.0°C
+Algorithm: Greedy O(n log n)
+```
+
+#### 3. Add New Crop
+
+```
+Main Menu → 2 (Crop Management) → 1 (Add New Crop)
+Enter crop type: Mango
+Enter quantity: 500
+Enter quality (A/B/C): A
+Enter price per kg: 150
+Enter farmer: farmer1
+
+Output: Crop added successfully!
+```
+
+#### 4. View Order Queue (FIFO)
+
+```
+Main Menu → 5 (Order Queue) → 2 (View All Orders)
+
+Output: Shows all pending orders in FIFO sequence
+Position 1: Order ID 1 | User: buyer1 | Crop ID: 2 | Qty: 1000 kg
+Position 2: Order ID 2 | User: buyer1 | Crop ID: 3 | Qty: 500 kg
+...
+```
+
+### Using Data Structures
+
+#### MAP Usage (O(log n) lookup)
+```cpp
+// Accessing user data
+map<string, User> users;
+User user = users["farmer1"];  // O(log n)
+```
+
+#### SET Usage (O(log n) insertion)
+```cpp
+// Role categorization
+set<string> farmers;
+farmers.insert("farmer1");  // O(log n)
+```
+
+#### DEQUE Usage (O(1) operations)
+```cpp
+// Order queue
+deque<Order> orders;
+orders.push_back(newOrder);  // O(1) enqueue
+Order first = orders.front(); // O(1) access
+orders.pop_front();          // O(1) dequeue
+```
+
+#### PRIORITY QUEUE Usage (O(log n) operations)
+```cpp
+// Storage allocation
+priority_queue<PQElement> pq;
+pq.push({score, storageId});  // O(log n)
+PQElement best = pq.top();    // O(1)
+pq.pop();                     // O(log n)
+```
+
+#### GRAPH Usage (Adjacency List)
+```cpp
+// City network
+map<string, vector<Edge>> cityGraph;
+cityGraph["Lahore"] = {{{"Islamabad", 375}, {"Multan", 342}}};
+```
 
 ---
 
-##  Dependencies
+## 📦 Dependencies
 
-### Backend (Python)
-
-```txt
-flask>=2.3.0
-```
-
-Install with:
-```bash
-pip install -r backend/requirements.txt
-```
-
-**Built-in Python Libraries Used:**
-- `heapq` - Priority queue for storage allocation
-- `collections.deque` - Queue for order processing
-- `json` - JSON serialization
-
-### Frontend
-
-**No dependencies or npm packages required!**
-- Pure HTML, CSS, JavaScript
-- No build process needed
-- No package.json or node_modules
-- Works directly in any modern browser
+- Any C++17-capable compiler (GCC, Clang, MSVC)
+- No third-party libraries
+- Console-only app; no server required
 
 ---
 
-## 💡 Code Implementation Details
+## 🔧 Build Troubleshooting
 
-### Backend (Python/Flask)
-
-The Flask backend uses in-memory data structures to demonstrate clear algorithm implementations:
-
-```python
-# Data storage using Python dictionaries (HashMap)
-users_db = {}           # O(1) lookup
-crops_db = {}           # O(1) lookup
-storage_db = {}         # O(1) lookup
-transport_db = {}       # O(1) lookup
-
-# Priority Queue for storage allocation
-import heapq
-def allocate_optimal_storage(quantity):
-    # Uses heapq for O(log n) operations
-    pq = []
-    for storage in storage_db.values():
-        score = calculate_score(storage)
-        heapq.heappush(pq, (-score, storage))
-    return heapq.heappop(pq)
-
-# Graph for Dijkstra's algorithm
-graph = {
-    'Lahore': {'Islamabad': 375, 'Multan': 350},
-    'Karachi': {'Hyderabad': 165, 'Multan': 890},
-    # ... more cities
-}
-
-# Queue for order processing
-from collections import deque
-orders_queue = deque()  # O(1) enqueue/dequeue
-```
-
-### Frontend
-
-Pure JavaScript with no frameworks - easy to understand:
-- Fetch API for backend communication
-- DOM manipulation for dynamic content
-- Event listeners for user interactions
+- Install a compiler:
+   - Windows: Visual Studio Build Tools or `mingw-w64`
+   - Linux: `sudo apt install build-essential`
+   - macOS: `xcode-select --install`
+- If `g++` not found, use `cl` (MSVC) from a Developer Command Prompt.
 
 ---
 
-## 📊 Algorithm Complexity Analysis
+## 🎓 Notes
 
-### Time Complexity
-
-| Operation | Complexity | Implementation |
-|-----------|-----------|----------------|
-| User Login | O(1) | HashMap lookup in dict |
-| Crop Search | O(1) | HashMap lookup |
-| Add Crop | O(1) | HashMap insert |
-| Storage Allocation | O(n log n) | Priority queue with heapq |
-| Route Finding | O((V+E) log V) | Dijkstra's algorithm |
-| Order Enqueue | O(1) | Deque append |
-| Order Dequeue | O(1) | Deque popleft |
-| View Reports | O(n) | Aggregate operations |
-
-### Space Complexity
-
-| Data Structure | Complexity | Usage |
-|----------------|-----------|-------|
-| Users HashMap | O(n) | n = number of users |
-| Crops HashMap | O(m) | m = number of crops |
-| Storage HashMap | O(s) | s = storage centers |
-| Transport HashMap | O(t) | t = transport services |
-| Graph (Routes) | O(V + E) | V = cities, E = routes |
-| Priority Queue | O(n) | Temporary for storage allocation |
-| Orders Queue | O(q) | q = pending orders |
-
-### Data Structures Summary
-
-1. **HashMap (dict)** - O(1) average lookup, O(n) space
-2. **HashSet (set)** - O(1) lookup for filtering
-3. **Priority Queue (heapq)** - O(log n) push/pop
-4. **Queue (deque)** - O(1) enqueue/dequeue
-5. **Graph (adjacency list)** - O(V+E) space
+- Code is in one file: [backend_cpp/agriconnect_simple.cpp](backend_cpp/agriconnect_simple.cpp)
+- Algorithms are implemented clearly for learning (Bubble Sort, Greedy, Knapsack)
 
 ---
 
-## 🌐 API Documentation
+## 🤝 Contributing
 
-### Base URL
-```
-http://localhost:5000/api
-```
-
-### Endpoints
-
-#### Authentication
-- `POST /api/register` - Register new user
-  ```json
-  {
-    "username": "farmer1",
-    "password": "pass123",
-    "role": "farmer",
-    "fullname": "John Doe"
-  }
-  ```
-
-- `POST /api/login` - User login
-  ```json
-  {
-    "username": "farmer1",
-    "password": "pass123"
-  }
-  ```
-
-#### Crops
-- `GET /api/crops` - Get all crops (HashMap traversal - O(n))
-- `POST /api/crops` - Add new crop (HashMap insert - O(1))
-
-#### Storage
-- `GET /api/storage` - Get all storage centers
-- `POST /api/storage/allocate` - Allocate optimal storage using Priority Queue
-  ```json
-  {
-    "quantity": 1000
-  }
-  ```
-
-#### Transport
-- `GET /api/transport` - Get transport services
-
-#### Routes
-- `POST /api/routes/shortest` - Calculate shortest path (Dijkstra's)
-  ```json
-  {
-    "start": "Lahore",
-    "end": "Karachi"
-  }
-  ```
-
-#### Orders
-- `GET /api/orders` - Get orders queue (FIFO)
-- `POST /api/orders` - Add order to queue (O(1) enqueue)
-
-#### System
-- `GET /api/stats` - Get system statistics
-- `GET /api/info` - Get algorithm information
+See [CONTRIBUTING.md](CONTRIBUTING.md) for build/run instructions and contribution guidelines.
 
 ---
 
-## 📝 License
+## 📄 License
 
 MIT License - Copyright (c) 2026 AgriConnect Pakistan
 
 ---
 
-## 👨‍💻 Developer Notes
+## 📞 Support
 
-### Backend Notes:
-- Flask REST API with in-memory data storage
-- Clear implementations of data structures (HashMap, Heap, Queue, Graph)
-- No database required - all data structures visible in code
-- CORS enabled for frontend communication
-- Sample data preloaded for testing
-
-### Frontend Notes:
-- Vanilla JavaScript (no frameworks)
-- Fetch API for REST communication
-- Responsive design
-- Clean and modern UI
-- Easy to customize
-
-### Key Features:
-- ✅ **HashMap** - Fast O(1) lookups for all entities
-- ✅ **Priority Queue (Heap)** - Optimal storage allocation
-- ✅ **Queue (Deque)** - FIFO order processing
-- ✅ **Graph + Dijkstra's** - Shortest path routing
-- ✅ **REST API** - Clean separation of frontend/backend
+For questions or issues:
+- Check [CONTRIBUTING.md](CONTRIBUTING.md) for build help
+- Review code comments in source files
+- Contact: support@agriconnect.pk
 
 ---
 
-## 🚀 Next Steps
+## 🎯 Key Highlights
 
-1. **Install Python** if not already installed
-2. **Install Flask**: `pip install -r backend/requirements.txt`
-3. **Start backend**: `python backend/app.py`
-4. **Open frontend**: Navigate to `frontend/index.html`
-5. **Test algorithms**: Try storage allocation and route finding features
+✨ **Educational Value** - Clear implementations of data structures and algorithms
+✨ **Production Ready** - Professional C++ code with proper structure
+✨ **Well Documented** - Extensive comments and complexity analysis
+✨ **Cross-Platform** - Works on Windows, Linux, and macOS
+✨ **No Dependencies** - Pure STL implementation
+✨ **Interactive** - Console-based menu system
+✨ **Extensible** - Easy to add new features
 
 ---
 
-**Thank you for using AgriConnect Pakistan!**
-
-*Last Updated: January 10, 2026*
+**Version:** 1.0.0
+**Last Updated:** January 2026
+**Language:** C++17
+**Status:** Ready to Use ✓
