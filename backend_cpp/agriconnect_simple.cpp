@@ -3,18 +3,11 @@
 #include <iomanip>
 using namespace std;
 
-/* =====================================================
-   AGRICONNECT PAKISTAN - OPTIMIZED IMPLEMENTATION
-   Data Structures: Hash Table, Linked List, BST, Min-Heap, Adjacency List
-   Algorithms: BST In-Order, Greedy, Knapsack DP, Dijkstra with Min-Heap
-   ===================================================== */
-
-   /* ==================== CONSTANTS ==================== */
 const int HASH_TABLE_SIZE = 101;
 const int MAX_CITIES = 8;
 const int MAX_HEAP_SIZE = 100;
 
-/* ==================== DATA STRUCTURES ==================== */
+//data structures
 
 struct SimpleDate {
     int day;
@@ -29,8 +22,8 @@ struct User {
     string password;
     string role;
     bool active;
-    User* nextInBucket;  // For hash table chaining
-    User* nextInList;    // For global list iteration
+    User* nextInBucket;
+    User* nextInList;
 };
 
 // Crop node for BST (sorted by price)
@@ -142,7 +135,7 @@ struct HeapNode {
     int distance;
 };
 
-/* ==================== GLOBAL DATA ==================== */
+
 User* userHashTable[HASH_TABLE_SIZE] = { nullptr };
 User* userListHead = nullptr;
 Crop* cropBSTRoot = nullptr;
@@ -158,7 +151,6 @@ int transportReqCount = 0, storageReqCount = 0;
 int vehicleCount = 0, storageCenterCount = 0, cityCount = 0;
 int currentUserId = -1;
 
-/* ==================== UTILITY FUNCTIONS ==================== */
 
 int maxInt(int a, int b) { return (a > b) ? a : b; }
 
@@ -204,14 +196,13 @@ int hashID(string key) {
     return h;
 }
 
-/* ==================== HASH TABLE (USER MANAGEMENT) ==================== */
+//hash table
 
 void insertUser(User* newUser) {
     int idx = hashUsername(newUser->username);
     newUser->nextInBucket = userHashTable[idx];
     userHashTable[idx] = newUser;
 
-    // Add to global list
     newUser->nextInList = userListHead;
     userListHead = newUser;
     userCount++;
@@ -236,7 +227,7 @@ User* findUserById(int userId) {
     return nullptr;
 }
 
-/* ==================== BST (CROP MANAGEMENT - SORTED BY PRICE) ==================== */
+//BST
 
 Crop* insertCropBST(Crop* root, Crop* newCrop) {
     if (root == nullptr) return newCrop;
@@ -271,7 +262,6 @@ Crop* findCropById(Crop* root, int cropId) {
     return findCropById(root->right, cropId);
 }
 
-// Helper: count crops for a specific farmer
 int countCropsForFarmer(Crop* root, int farmerId) {
     if (root == nullptr) return 0;
     int left = countCropsForFarmer(root->left, farmerId);
@@ -280,7 +270,6 @@ int countCropsForFarmer(Crop* root, int farmerId) {
     return left + self + right;
 }
 
-// Helper: print crops for a specific farmer
 void printFarmerCrops(Crop* root, int farmerId) {
     if (root == nullptr) return;
     printFarmerCrops(root->left, farmerId);
@@ -292,7 +281,6 @@ void printFarmerCrops(Crop* root, int farmerId) {
     printFarmerCrops(root->right, farmerId);
 }
 
-// Helper: print crops filtered by type and budget
 void printCropsByTypeAndBudget(Crop* root, const string& targetCrop, int maxBudget, bool& found) {
     if (root == nullptr) return;
     printCropsByTypeAndBudget(root->left, targetCrop, maxBudget, found);
@@ -307,7 +295,7 @@ void printCropsByTypeAndBudget(Crop* root, const string& targetCrop, int maxBudg
     printCropsByTypeAndBudget(root->right, targetCrop, maxBudget, found);
 }
 
-/* ==================== LINKED LIST OPERATIONS ==================== */
+//linked list
 
 void addOrder(Order* newOrder) {
     newOrder->next = orderHead;
@@ -339,7 +327,7 @@ void addStorageCenter(StorageCenter* sc) {
     storageCenterCount++;
 }
 
-/* ==================== GRAPH (ADJACENCY LIST FOR CITIES) ==================== */
+// graph(adjacency list)
 
 void addEdge(int cityIdx, int neighborIdx, int distance) {
     EdgeNode* newEdge = new EdgeNode;
@@ -349,12 +337,12 @@ void addEdge(int cityIdx, int neighborIdx, int distance) {
     cities[cityIdx].adjList = newEdge;
 }
 
-/* ==================== MIN-HEAP FOR DIJKSTRA ==================== */
+// min heap
 
 struct MinHeap {
     HeapNode heap[MAX_HEAP_SIZE];
     int size;
-    int position[MAX_CITIES];  // Track city positions in heap
+    int position[MAX_CITIES];
 };
 
 void initHeap(MinHeap* h) {
@@ -433,9 +421,9 @@ bool isInHeap(MinHeap* h, int cityIdx) {
     return h->position[cityIdx] != -1 && h->position[cityIdx] < h->size;
 }
 
-/* ==================== ALGORITHMS ==================== */
+// ==================== ALGORITHMS ==================== 
 
-// ALGORITHM 1: Greedy Vehicle Assignment - O(n)
+//Greedy Vehicle Assignment
 Vehicle* assignVehicle(int weight, string organization) {
     Vehicle* curr = vehicleHead;
     while (curr != nullptr) {
@@ -448,7 +436,7 @@ Vehicle* assignVehicle(int weight, string organization) {
     return nullptr;
 }
 
-// ALGORITHM 2: 0/1 Knapsack DP - O(n×W)
+//0/1 Knapsack DP
 int knapsackStorageAllocation(int capacity, int weights[], int values[], int n, bool selected[]) {
     const int MAX_CAP_DP = 200;
     int scale = (capacity > MAX_CAP_DP) ? (capacity / MAX_CAP_DP) : 1;
@@ -488,7 +476,7 @@ int knapsackStorageAllocation(int capacity, int weights[], int values[], int n, 
     return dp[n][capN];
 }
 
-// ALGORITHM 3: Dijkstra with Min-Heap - O((V+E)logV)
+//Dijkstra with Min-Heap
 int dijkstraShortestPath(int startIdx, int endIdx, int path[], int& pathLength) {
     const int INF = 999999;
     int dist[MAX_CITIES];
@@ -835,23 +823,23 @@ void requestTransport() {
     cout << "\n=== Request Transport ===\n";
 
     if (user->role == "farmer") {
-        // Farmers transport crops with ACCEPTED storage requests
+
         cout << "\n=== Your Crops Accepted by Storage Centers ===\n";
         cout << setw(8) << "CropID" << setw(12) << "Type" << setw(12) << "Qty Stored"
             << setw(15) << "Storage Center\n";
         cout << "==================================================================================\n";
 
-        // Find all crops that have accepted storage requests for this farmer
+
         bool foundStored = false;
         StorageRequest* sr = storageHead;
 
         while (sr != nullptr) {
-            // Check if this storage request is accepted, not released, and made by current farmer
+
             if (sr->accepted && !sr->released && sr->requesterId == currentUserId) {
-                // Find the crop
+
                 Crop* crop = findCropById(cropBSTRoot, sr->cropId);
 
-                // Display if it belongs to current farmer
+
                 if (crop != nullptr && crop->farmerId == currentUserId) {
                     cout << setw(8) << crop->cropId << setw(12) << crop->cropType
                         << setw(12) << sr->quantity << setw(15) << sr->organization << "\n";
@@ -866,26 +854,25 @@ void requestTransport() {
             return;
         }
 
-        // Bulk input for crops
         cout << "\n=== Select Crops to Transport ===\n";
         cout << "Enter crop IDs separated by space: ";
 
         int tempCropIds[50];
         int tempCount = 0;
 
-        // Read all crop IDs from single line
+
         string line;
         cin.ignore();
         getline(cin, line);
 
-        // Parse the IDs
+
         int pos = 0;
         while (pos < line.length() && tempCount < 50) {
-            // Skip spaces
+
             while (pos < line.length() && line[pos] == ' ') pos++;
             if (pos >= line.length()) break;
 
-            // Read number
+ 
             int num = 0;
             while (pos < line.length() && line[pos] >= '0' && line[pos] <= '9') {
                 num = num * 10 + (line[pos] - '0');
@@ -899,7 +886,7 @@ void requestTransport() {
             return;
         }
 
-        // Now ask for quantities and validate
+
         int cropIds[50];
         int quantities[50];
         int validCount = 0;
@@ -937,7 +924,7 @@ void requestTransport() {
         cout << "Budget (Rs): "; cin >> budget;
         cout << "Transport Organization (FastMove/AgriTrans/GreenWay): "; cin >> organization;
 
-        // Create transport request
+
         TransportRequest* req = new TransportRequest;
         req->requestId = transportReqCount + 1;
         req->cropCount = validCount;
@@ -962,7 +949,7 @@ void requestTransport() {
 
     }
     else if (user->role == "buyer") {
-        // Buyers transport their orders
+
         int orderId, budget;
         string organization;
 
@@ -986,7 +973,6 @@ void requestTransport() {
             return;
         }
 
-        // Check if order is approved by farmer and paid
         if (!order->farmerApproved) {
             cout << "Cannot request transport: Order not yet approved by farmer!\n";
             return;
@@ -1034,7 +1020,7 @@ void viewTransportRequests() {
         return;
     }
 
-    string org = user->username; // username represents org for providers
+    string org = user->username; 
 
     cout << "\n=== Transport Requests for " << org << " ===\n";
     cout << "ReqID\tCropCount\tWeight\tBudget\tRequester\tStatus\n";
@@ -1126,7 +1112,7 @@ void completeDelivery() {
         if (tr->requestId == reqId && tr->accepted) {
             tr->completed = true;
 
-            // Mark all crops in this transport as delivered
+
             for (int i = 0; i < tr->cropCount; i++) {
                 Order* ord = orderHead;
                 while (ord != nullptr) {
@@ -1147,7 +1133,6 @@ void completeDelivery() {
     cout << "Request not found or not accepted yet!\n";
 }
 
-/* ==================== VEHICLE REGISTRATION ==================== */
 
 void registerVehicle() {
     User* user = findUserById(currentUserId);
@@ -1229,7 +1214,6 @@ void requestStorage() {
 
     cout << "Quantity (kg): "; cin >> quantity;
 
-    // Validate quantity against available crop quantity
     if (quantity > crop->quantity) {
         cout << "Error: Requested quantity (" << quantity << " kg) exceeds available crop quantity ("
             << crop->quantity << " kg)!\n";
@@ -1279,7 +1263,7 @@ void viewStorageRequests() {
         return;
     }
 
-    string org = user->username; // username represents org for storage owners
+    string org = user->username; 
 
     cout << "\n=== Storage Requests for " << org << " ===\n";
     cout << "ReqID\tCrop\tQuantity\tBudget\tRequester\tStatus\n";
@@ -1332,7 +1316,6 @@ void registerStorageCenter() {
 
     string org = user->username;
 
-    // Check if organization already has a storage center
     StorageCenter* checkExisting = storageCenterHead;
     while (checkExisting != nullptr) {
         if (checkExisting->organization == org) {
@@ -1382,7 +1365,7 @@ void allocateStorageOptimally() {
         return;
     }
 
-    string org = user->username; // username represents org for storage owners
+    string org = user->username;
 
     StorageCenter* center = storageCenterHead;
     while (center != nullptr) {
@@ -1428,12 +1411,11 @@ void allocateStorageOptimally() {
             requests[i]->approvalDate = getCurrentDate();
             usedCapacity += requests[i]->quantity;
 
-            // Update the crop's storage information
             Crop* crop = findCropById(cropBSTRoot, requests[i]->cropId);
             if (crop != nullptr) {
                 crop->storageQuantity = requests[i]->quantity;
                 crop->storageCenter = org;
-                crop->quantity -= requests[i]->quantity; // Reduce available quantity
+                crop->quantity -= requests[i]->quantity;
             }
 
             cout << "  - ReqID " << requests[i]->requestId << ": "
@@ -1466,7 +1448,7 @@ void viewStoredCrops() {
     int stackTop = 0;
     bool found = false;
 
-    // InOrder traversal to display farmer's stored crops
+//inorder traversal
     while (node != nullptr || stackTop > 0) {
         while (node != nullptr) {
             stack[stackTop++] = node;
@@ -1513,12 +1495,10 @@ void releaseStoredCrop() {
         return;
     }
 
-    // Transfer from storage back to available inventory
     crop->storageQuantity -= quantity;
     crop->quantity += quantity;
     crop->storageCenter = "";
 
-    // Update corresponding storage request as released
     StorageRequest* currReq = storageHead;
     while (currReq != nullptr) {
         if (currReq->cropId == cropId && currReq->requesterId == currentUserId && !currReq->released) {
@@ -1649,7 +1629,6 @@ void findShortestRoute() {
     }
 }
 
-/* ==================== STATISTICS ==================== */
 
 void viewStatistics() {
     User* user = findUserById(currentUserId);
@@ -1846,10 +1825,9 @@ void viewSystemStatistics() {
     cout << "  Storage Requests: " << storageReqCount << " (" << acceptedStorage << " accepted)\n";
 }
 
-/* ==================== INITIALIZATION ==================== */
 
 void initializeSampleData() {
-    // Sample Vehicles (distributed among transport providers)
+    // Sample Vehicles
     string vehicleOrgs[] = { "FastMove", "FastMove", "AgriTrans", "GreenWay", "AgriTrans" };
     for (int i = 0; i < 5; i++) {
         Vehicle* v = new Vehicle;
@@ -1919,7 +1897,7 @@ void initializeSampleData() {
         insertUser(u);
     }
 
-    // Storage Owners (use organization names)
+    // Storage Owners
     for (int i = 0; i < 4; i++) {
         User* u = new User;
         u->userId = 1200 + i;
@@ -1964,7 +1942,6 @@ void initializeSampleData() {
     }
     cityCount = 8;
 
-    // Edges (bidirectional)
     addEdge(0, 1, 380); addEdge(1, 0, 380);  // Lahore-Islamabad
     addEdge(0, 3, 340); addEdge(3, 0, 340);  // Lahore-Multan
     addEdge(0, 4, 135); addEdge(4, 0, 135);  // Lahore-Faisalabad
@@ -1984,7 +1961,7 @@ void initializeSampleData() {
     cout << "  Storage: ColdHub, AgriStore, FarmSafe, FreshKeep / pass123\n";
 }
 
-/* ==================== MENU FUNCTIONS ==================== */
+//menus of users
 
 void farmerMenu() {
     int choice;
@@ -2213,7 +2190,6 @@ void transportProviderMenu() {
         case 1: registerVehicle(); break;
         case 2: viewMyVehicles(); break;
         case 3: {
-            // Consolidated view and respond to requests
             cout << "\n=== View & Respond to Transport Requests ===\n";
             viewTransportRequests();
             int reqId;
@@ -2229,16 +2205,16 @@ void transportProviderMenu() {
                             User* user = findUserById(currentUserId);
                             string org = (user != nullptr) ? user->username : "";
 
-                            // Calculate how many vehicles needed
+
                             int remainingWeight = curr->weight;
                             int vehiclesAssigned = 0;
 
-                            // Try to find vehicles for this organization
+
                             Vehicle* v = vehicleHead;
                             while (v != nullptr && remainingWeight > 0) {
                                 if (v->organization == org && v->available) {
                                     if (v->capacity >= remainingWeight) {
-                                        // This vehicle can handle all remaining weight
+
                                         v->available = false;
                                         vehiclesAssigned++;
                                         cout << "Vehicle " << v->vehicleId << " assigned (Capacity: "
@@ -2246,7 +2222,7 @@ void transportProviderMenu() {
                                         remainingWeight = 0;
                                     }
                                     else {
-                                        // This vehicle takes partial load
+
                                         v->available = false;
                                         vehiclesAssigned++;
                                         cout << "Vehicle " << v->vehicleId << " assigned (Capacity: "
@@ -2258,10 +2234,8 @@ void transportProviderMenu() {
                             }
 
                             if (remainingWeight > 0) {
-                                // Insufficient capacity - reject request and restore vehicles
                                 curr->rejected = true;
 
-                                // Restore all assigned vehicles back to available
                                 Vehicle* restoreV = vehicleHead;
                                 int restored = 0;
                                 while (restoreV != nullptr && restored < vehiclesAssigned) {
@@ -2336,7 +2310,6 @@ void storageOwnerMenu() {
                 cout << "1. Accept  |  2. Reject: ";
                 cin >> action;
 
-                // Locate storage center for current owner
                 User* user = findUserById(currentUserId);
                 string org = (user != nullptr) ? user->username : "";
                 StorageCenter* center = storageCenterHead;
@@ -2361,12 +2334,11 @@ void storageOwnerMenu() {
                             curr->approvalDate = getCurrentDate();
                             center->availableCapacity -= curr->quantity;
 
-                            // Update the crop's storage information
                             Crop* crop = findCropById(cropBSTRoot, curr->cropId);
                             if (crop != nullptr) {
                                 crop->storageQuantity = curr->quantity;
                                 crop->storageCenter = org;
-                                crop->quantity -= curr->quantity; // Reduce available quantity
+                                crop->quantity -= curr->quantity;
                             }
 
                             cout << "Request accepted and capacity updated!\n";
@@ -2393,7 +2365,6 @@ void storageOwnerMenu() {
     } while (choice != 0);
 }
 
-/* ==================== MAIN ==================== */
 
 int main() {
     initializeSampleData();

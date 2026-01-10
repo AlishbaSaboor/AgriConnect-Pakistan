@@ -25,7 +25,7 @@
 
     <section class="content-section">
         <div class="container">
-            <h2>🗺️ Shortest Route Finder (Dijkstra's Algorithm)</h2>
+            <h2>🗺️ Shortest Route Finder</h2>
 
             <div class="algorithm-section">
                 <div class="form-container">
@@ -71,31 +71,20 @@
                         <p><strong>Shortest Distance:</strong> <span id="resultDistance"></span> km</p>
                         <p><strong>Estimated Time:</strong> <span id="resultTime"></span></p>
                         <p><strong>Path:</strong> <span id="resultPath"></span></p>
-                        <p><strong>Algorithm Used:</strong> Dijkstra's Shortest Path Algorithm</p>
-                        <p><strong>Time Complexity:</strong> O((V + E) log V)</p>
                     </div>
                 </div>
 
                 <div class="algorithm-explanation">
-                    <h3>📚 About Dijkstra's Algorithm</h3>
-                    <p>Dijkstra's algorithm is a graph search algorithm that finds the shortest path between nodes in a graph. It's widely used in network routing protocols and transportation planning.</p>
+                    <h3>📚 How the route finder works</h3>
+                    <p>The route finder picks the quickest path across our built-in city map, balancing distance and estimated time so deliveries stay on schedule.</p>
                     
-                    <h4>How it Works:</h4>
+                    <h4>What happens when you search:</h4>
                     <ol>
-                        <li>Initialize all distances to infinity, except the start node (distance = 0)</li>
-                        <li>Mark all nodes as unvisited</li>
-                        <li>Select the unvisited node with the smallest distance</li>
-                        <li>Update distances to all neighbors</li>
-                        <li>Mark current node as visited</li>
-                        <li>Repeat until destination is reached</li>
+                        <li>We load the latest city-to-city distance map</li>
+                        <li>Your start and destination are pinned</li>
+                        <li>We calculate the fastest path across the network</li>
+                        <li>The full route, distance, and travel time are shown instantly</li>
                     </ol>
-
-                    <h4>Time Complexity:</h4>
-                    <ul>
-                        <li><strong>With Priority Queue:</strong> O((V + E) log V)</li>
-                        <li><strong>With Array:</strong> O(V²)</li>
-                        <li>Where V = number of vertices, E = number of edges</li>
-                    </ul>
                 </div>
 
                 <div class="city-network">

@@ -149,10 +149,7 @@ function allocateStorage() {
                 <p><strong>Allocated Quantity:</strong> ${quantity} kg</p>
                 <p><strong>Remaining Capacity:</strong> ${bestStorage.available} kg</p>
                 <p><strong>Utilization:</strong> ${utilizationPercent}%</p>
-                <p><strong>Algorithm Score:</strong> ${bestScore.toFixed(2)}</p>
-                <hr>
-                <p><em>Algorithm Used: Priority Queue (Greedy Approach)</em></p>
-                <p><em>Time Complexity: O(n) where n = number of storage centers</em></p>
+                <p><strong>Suitability Score:</strong> ${bestScore.toFixed(2)}</p>
             </div>
         `;
         

@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Language](https://img.shields.io/badge/C%2B%2B-17-orange)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
+![Platform](https://img.shields.io/badge/Platform-Windows-blue)
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## 🌾 Overview
 
-AgriConnect Pakistan is a simple, single-file C++ console application. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage optimally, and transport providers accept delivery requests.
+AgriConnect Pakistan is a simple, single-file C++ console application for Windows. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
 
 ---
 
@@ -78,26 +78,23 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 
 ## 🛠 Quick Start
 
-### Windows (recommended)
+### Windows
+
+Option 1: one-click run
 
 ```bat
 run_simple.bat
 ```
 
-### Linux/macOS
+Option 2: compile manually (MinGW or MSVC build tools)
 
-```bash
-chmod +x run_simple.sh
-./run_simple.sh
-```
-
-### Manual compile
-
-```bash
+```bat
 cd backend_cpp
-g++ -std=c++17 -Wall -Wextra -O2 -o agriconnect agriconnect_simple.cpp
-./agriconnect
+g++ -std=c++17 -Wall -Wextra -O2 -o agriconnect.exe agriconnect_simple.cpp
+agriconnect.exe
 ```
+
+Data is saved to text files in the `backend` folder when the console app runs.
 
 ---
 
@@ -148,14 +145,11 @@ When you run the application, you'll see:
 
 ```
 Main Menu:
-1. User Management
-2. Crop Management
-3. Storage Management
-4. Transport Management
-5. Order Queue Management
-6. Route Planning (Dijkstra)
-7. View Statistics
-8. View System Information
+1. Register
+2. Login
+3. View All Users
+4. View Statistics
+5. Find Shortest Route
 0. Exit
 ```
 
@@ -170,10 +164,10 @@ Password: pass123 (or admin123 for admin)
 
 ### Example Usage Scenarios
 
-#### 1. Find Shortest Route (Dijkstra's Algorithm)
+#### 1. Find Shortest Route
 
 ```
-Main Menu → 6 (Route Planning) → 1 (Find Shortest Route)
+Main Menu → 5 (Find Shortest Route)
 Enter start city: Lahore
 Enter destination: Karachi
 
@@ -181,26 +175,24 @@ Output:
 Path: Lahore -> Multan -> Karachi
 Total Distance: 1322 km
 Estimated Time: 16h 32m
-Algorithm: Dijkstra O((V+E)logV)
 ```
 
 #### 2. Allocate Storage (Priority Queue)
 
 ```
-Main Menu → 3 (Storage Management) → 2 (Allocate Storage)
+Main Menu → Login as storage owner → Storage menu → Allocate Storage
 Enter quantity: 2000
 
 Output:
 Storage allocated at: Karachi Agri Hub
 Available capacity: 10000 kg
 Temperature: 5.0°C
-Algorithm: Greedy O(n log n)
 ```
 
 #### 3. Add New Crop
 
 ```
-Main Menu → 2 (Crop Management) → 1 (Add New Crop)
+Main Menu → Login as farmer → Crop menu → Add New Crop
 Enter crop type: Mango
 Enter quantity: 500
 Enter quality (A/B/C): A
@@ -213,7 +205,7 @@ Output: Crop added successfully!
 #### 4. View Order Queue (FIFO)
 
 ```
-Main Menu → 5 (Order Queue) → 2 (View All Orders)
+Main Menu → Login as buyer → Orders menu → View All Orders
 
 Output: Shows all pending orders in FIFO sequence
 Position 1: Order ID 1 | User: buyer1 | Crop ID: 2 | Qty: 1000 kg
@@ -266,19 +258,17 @@ cityGraph["Lahore"] = {{{"Islamabad", 375}, {"Multan", 342}}};
 
 ## 📦 Dependencies
 
-- Any C++17-capable compiler (GCC, Clang, MSVC)
+- Windows with a C++17-capable compiler (MSVC or MinGW)
 - No third-party libraries
 - Console-only app; no server required
 
 ---
 
-## 🔧 Build Troubleshooting
+## 🔧 Build Troubleshooting (Windows)
 
-- Install a compiler:
-   - Windows: Visual Studio Build Tools or `mingw-w64`
-   - Linux: `sudo apt install build-essential`
-   - macOS: `xcode-select --install`
-- If `g++` not found, use `cl` (MSVC) from a Developer Command Prompt.
+- Install a compiler: Visual Studio Build Tools or `mingw-w64`
+- If `g++` is not found, open a Developer Command Prompt and use `cl`
+- Keep the project path short to avoid long-path issues when compiling
 
 ---
 
@@ -315,7 +305,7 @@ For questions or issues:
 ✨ **Educational Value** - Clear implementations of data structures and algorithms
 ✨ **Production Ready** - Professional C++ code with proper structure
 ✨ **Well Documented** - Extensive comments and complexity analysis
-✨ **Cross-Platform** - Works on Windows, Linux, and macOS
+✨ **Windows-First** - Built and tested for Windows
 ✨ **No Dependencies** - Pure STL implementation
 ✨ **Interactive** - Console-based menu system
 ✨ **Extensible** - Easy to add new features
