@@ -12,8 +12,6 @@
 ## 📋 Table of Contents
 - [Overview](#overview)
 - [Features](#features)
-- [Quick Start](#quick - start)
-- [Project Structure](#project - structure)
 - [Algorithms](#algorithms)
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
@@ -36,7 +34,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 3. **Inefficient Transportation** - Difficulty finding optimal routes
 4. **Post - Harvest Losses** - Up to 30 - 40 % of crops wasted
 
-**Solution:**A technology - driven platform using optimized algorithms and data structures.
+**Solution:** A technology - driven platform using optimized algorithms and data structures.
 
 ---
 
@@ -50,7 +48,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 - Track order deliveries
 - View system statistics
 
-            ### 🛒 Buyer
+### 🛒 Buyer
 - View all available crops(sorted by price using BST)
 - Compare crop prices(in - order tree traversal)
 - Place orders and specify quantities
@@ -74,7 +72,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 - Track delivery statistics
 - View system analytics
 
---=
+---
 ## 🛠 Quick Start
 
 ### Windows
@@ -98,16 +96,16 @@ agriconnect.exe
 ## 🔢 Algorithms & Data Structures
 
 ### Data Structures
-- **Hash Table * *(User lookup) : O(1) average username search with chaining
-- **Binary Search Tree * *(Crops) : O(log n) insertion, automatic price sorting, in - order traversal
-- **Linked Lists * *(Orders, Transport, Storage, Vehicles, Centers) : dynamic growth, no size limits
-- **Adjacency List * *(City network) : space - efficient graph representation
-- **Min - Heap * *(Dijkstra's priority queue): efficient distance extraction
+- **Hash Table** (User lookup) : O(1) average username search with chaining
+- **Binary Search Tree** (Crops) : O(log n) insertion, automatic price sorting, in - order traversal
+- **Linked Lists** (Orders, Transport, Storage, Vehicles, Centers) : dynamic growth, no size limits
+- **Adjacency List** (City network) : space - efficient graph representation
+- **Min - Heap** (Dijkstra's priority queue): efficient distance extraction
 
 ### Algorithms
-- **Greedy First - Fit * *: Assign vehicles to transport requests(O(n))
-- **0 / 1 Knapsack(DP) * *: Optimal storage allocation to maximize budget(O(n×W))
-- **Dijkstra with Min - Heap * *: Find shortest routes between cities(O((V + E)log V))
+- **Greedy First - Fit**: Assign vehicles to transport requests(O(n))
+- **0 / 1 Knapsack(DP)**: Optimal storage allocation to maximize budget(O(n×W))
+- **Dijkstra with Min - Heap**: Find shortest routes between cities(O((V + E)log V))
 
 ---
 
@@ -163,7 +161,7 @@ Password: pass123 (or admin123 for admin)
 
 ```
 Main Menu → 5 (Find Shortest Route)
-                Enter start city: Lahore
+Enter start city: Lahore
 Enter destination: Karachi
 
 Output:
@@ -213,14 +211,6 @@ Position 2: Order ID 2 | User: buyer1 | Crop ID: 3 | Qty: 500 kg
 - Windows with a C++17-capable compiler (MSVC or MinGW)
 - No third-party libraries
 - Console-only app; no server required
-
----
-
-## 🔧 Build Troubleshooting (Windows)
-
-- Install a compiler: Visual Studio Build Tools or `mingw-w64`
-- If `g++` is not found, open a Developer Command Prompt and use `cl`
-- Keep the project path short to avoid long-path issues when compiling
 
 ---
 
