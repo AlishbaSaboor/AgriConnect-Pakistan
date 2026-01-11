@@ -17,13 +17,13 @@ Double-click `start_backend.bat` from the project root. This starts the backend 
 ### Option 2: PowerShell / Command Prompt
 ```powershell
 cd backend_cpp
-g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
-.\server.exe
+g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
+.\integrated_server.exe
 ```
 
 Notes:
 - The backend uses Winsock2 (provided by Windows SDK/Visual Studio).
-- If port 8080 is busy, stop existing processes using that port or change the port in `server_simple.cpp`.
+- If port 8080 is busy, stop existing processes using that port or change the port in `integrated_server.cpp`.
 
 ---
 
@@ -93,12 +93,12 @@ Key backend endpoints (mock server):
 ## Contributing to the Project
 
 ### Adding / Updating Backend Endpoints
-1. Open `backend_cpp/server_simple.cpp`
+1. Open `backend_cpp/integrated_server.cpp`
 2. Add your handler logic in `handleRequest()` or extend routing in `handleClient()`
 3. Recompile:
    ```powershell
    cd backend_cpp
-   g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
+   g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
    ```
 
 ### Code Style
