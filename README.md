@@ -11,7 +11,7 @@
 
 ## 🌾 Overview
 
-AgriConnect Pakistan provides a lightweight C++ HTTP backend (Windows, port 8080) and a static HTML/CSS/JS frontend (served on port 8000). It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
+AgriConnect Pakistan provides a lightweight C++ HTTP backend and a static HTML/CSS/JS frontend. It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
 
 ---
 
@@ -67,7 +67,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 
 ### Windows
 
-Option 1: one-click start (recommended)
+Option 1: one-click start
 
 ```
 start_backend.bat   # Starts C++ backend on http://localhost:8080
@@ -90,8 +90,7 @@ Option 3: compile backend yourself (MinGW or MSVC)
 
 ```
 cd backend_cpp
-g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
-.\server.exe
+g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32.\server.exe
 ```
 
 ---
@@ -117,6 +116,7 @@ g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
 ```
 AgriConnect-Pakistan/
 ├── backend_cpp/
+|   ├── agriconnect_simple.cpp           # C++ backend
 │   ├── server_simple.cpp           # C++ HTTP backend (Winsock)
 │   └── server.exe                  # Compiled backend
 ├── frontend/                       # Static HTML/CSS/JS frontend
@@ -210,13 +210,6 @@ Output: Crop added successfully!
 - No third-party server libraries
 
 Backend runs on http://localhost:8080 and the frontend on http://localhost:8000. The frontend uses `frontend/js/api-config.js` with `API_BASE_URL = 'http://localhost:8080'`.
-
-### API Endpoints (current mock server)
-- `GET /status` → `{ status: "ok" }`
-- `POST /login` → success with mock user; invalid body returns `{ success: false, message: "Invalid credentials. Please register first!" }`
-- `POST /register` → success response
-- `GET /users` → sample user list
-- `GET /crops` → sample crops
 
 ---
 

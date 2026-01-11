@@ -11,7 +11,7 @@
 
 ## Running the Backend (C++)
 
-### Option 1: One-click (recommended)
+### Option 1: One-click 
 Double-click `start_backend.bat` from the project root. This starts the backend on http://localhost:8080.
 
 ### Option 2: PowerShell / Command Prompt
@@ -121,7 +121,3 @@ mysql -u root -p < database/schema.sql
 ```
 
 ---
-
-## Project Notes
-- Deprecated legacy files/scripts removed: old `agriconnect_*` sources and `run_simple.sh` (Linux).
-- Preferred Windows start scripts: `start_backend.bat`, `start_frontend.bat`.
