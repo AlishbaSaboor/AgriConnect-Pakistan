@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:8080';
 
 // API Helper function
 async function apiCall(endpoint, method = 'GET', data = null) {
@@ -16,6 +16,9 @@ async function apiCall(endpoint, method = 'GET', data = null) {
     
     try {
         const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const result = await response.json();
         return result;
     } catch (error) {
