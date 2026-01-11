@@ -3,91 +3,49 @@
 ## Quick Start Guide
 
 ### Prerequisites
-- C++ compiler (MSVC, GCC, or Clang)
-- CMake 3.10+ (optional, for easier builds)
-- Terminal/Command Prompt
+- Windows (PowerShell or Command Prompt)
+- C++17 compiler (MSVC or MinGW/GCC)
+- Python 3 (to serve the frontend)
 
 ---
 
 ## Running the Backend (C++)
 
-### Option 1: Using CMake & Visual Studio
+### Option 1: One-click (recommended)
+Double-click `start_backend.bat` from the project root. This starts the backend on http://localhost:8080.
 
-```bash
-# 1. Open Command Prompt or PowerShell
-cd AgriConnect-Pakistan
-
-# 2. Create build directory
-mkdir build
-cd build
-
-# 3. Configure with CMake (choose your Visual Studio version)
-cmake .. -G "Visual Studio 16 2019"
-# OR
-cmake .. -G "Visual Studio 17 2022"
-
-# 4. Build the project
-cmake --build . --config Release
-
-# 5. Run the executable
-Release\AgriConnect_Backend.exe
-```
-
-### Option 2: Using VS Code
-
-If you prefer using VS Code instead of Visual Studio:
-
-```bash
-# 1. Open project folder in VS Code
-# 2. Install "C/C++" extension by Microsoft
-# 3. Open terminal in VS Code (Ctrl + `)
-# 4. Navigate to backend_cpp folder
+### Option 2: PowerShell / Command Prompt
+```powershell
 cd backend_cpp
-
-# 5. Compile directly with g++ (if you have MinGW or similar)
-g++ -std=c++17 -o AgriConnect_Backend.exe main.cpp agriconnect.cpp
-
-# 6. Run
-.\AgriConnect_Backend.exe
+g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
+.\server.exe
 ```
 
-### Option 3: Direct Compilation (Windows - MSVC)
-
-```bash
-# Open Developer Command Prompt for Visual Studio
-cd backend_cpp
-cl /std:c++17 /EHsc main.cpp agriconnect.cpp /Fe:AgriConnect_Backend.exe
-AgriConnect_Backend.exe
-```
-
-### Option 4: Using Makefile (if available)
-
-```bash
-# From project root
-make
-```
+Notes:
+- The backend uses Winsock2 (provided by Windows SDK/Visual Studio).
+- If port 8080 is busy, stop existing processes using that port or change the port in `server_simple.cpp`.
 
 ---
 
 ## Running the Frontend (HTML/JavaScript)
 
-The frontend is standalone HTML/CSS/JavaScript and doesn't need a backend connection.
+The frontend is static HTML/CSS/JS and calls the backend at `http://localhost:8080` (configured in `frontend/js/api-config.js`).
 
 ### Option 1: Direct File Opening
-```bash
-# Simply double-click on:
+```powershell
+# Simply double-click:
 frontend/index.html
 ```
 
 ### Option 2: Using Python HTTP Server
-```bash
+```powershell
 cd frontend
 python -m http.server 8000
 # Then visit: http://localhost:8000
 ```
 
 ### Option 3: Using Node.js http-server
-```bash
+```powershell
 cd frontend
 npx http-server -p 8000
 # Then visit: http://localhost:8000
@@ -103,127 +61,49 @@ npx http-server -p 8000
 
 ## Troubleshooting
 
-### "CMake not found"
-- Download from: https://cmake.org/download/
-- Add to PATH during installation
+### "Connection error. Make sure C++ server is running on port 8080."
+- Ensure backend is listening: `netstat -ano | findstr :8080`
+- Test endpoint directly: open http://localhost:8080/status in a browser
+- Confirm `frontend/js/api-config.js` has `API_BASE_URL = 'http://localhost:8080'`
+- Hard refresh the browser (Ctrl+F5) or clear cache
+- Temporarily allow the app through Windows Firewall if blocked
 
 ### "Compiler not found"
-**Windows:**
-- Install Visual Studio Community (free): https://visualstudio.microsoft.com/
-- Or install Build Tools for Visual Studio
+Install one of:
+- Visual Studio Community (MSVC) or Build Tools
+- MinGW-w64 (GCC for Windows)
 
-**Linux:**
-```bash
-sudo apt-get install build-essential cmake g++
-```
-
-**macOS:**
-```bash
-xcode-select --install
-brew install cmake
-```
-
-### "Visual Studio version mismatch"
-If you get an error about Visual Studio version, specify your installed version:
-```bash
-cmake .. -G "Visual Studio 16 2019"  # For VS 2019
-cmake .. -G "Visual Studio 17 2022"  # For VS 2022
-```
-
-Or use MinGW:
-```bash
-cmake .. -G "MinGW Makefiles"
-```
-
-### Build succeeds but exe doesn't run
-Check if the executable exists:
-```bash
-dir Release\AgriConnect_Backend.exe  # Windows
-```
-
-Run from the correct directory (build folder).
+### Backend compiles but doesn't start
+- Run `server.exe` from inside the `backend_cpp` folder
+- Check port 8080 usage: `netstat -ano | findstr :8080`
+- With MinGW, try: `-static-libgcc -static-libstdc++`
 
 ---
 
 ## Using the Application
 
-Once the backend runs, you'll see a menu:
-
-```
-Main Menu:
-1. User Management
-2. Crop Management
-3. Storage Management
-4. Transport Management
-5. Order Queue Management
-6. Route Planning (Dijkstra)
-7. View Statistics
-8. View System Information
-0. Exit
-```
-
-### Test Credentials (Pre-loaded)
-- **Username:** farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
-- **Password:** pass123 (or admin123 for admin)
-
-### Try These Features:
-1. **Route Planning (Option 6):** Enter "Lahore" and "Karachi" to see Dijkstra's algorithm in action
-2. **Storage Allocation (Option 3):** Enter a quantity to see the greedy allocation algorithm
-3. **Add Crops (Option 2):** Add new crops to the system
-4. **View Orders (Option 5):** See FIFO queue in action
-
----
-
-## Project Structure
-
-```
-AgriConnect-Pakistan/
-├── backend_cpp/           # C++ Backend Source Code
-│   ├── agriconnect.h      # Header file (data structures)
-│   ├── agriconnect.cpp    # Implementation (algorithms)
-│   └── main.cpp           # Entry point (menu system)
-│
-├── frontend/              # Frontend (Standalone)
-│   ├── *.html             # Web pages
-│   ├── css/               # Stylesheets
-│   └── js/                # JavaScript files
-│
-├── database/              # Database Schema
-│   └── schema.sql         # MySQL schema
-│
-├── CMakeLists.txt         # CMake build configuration
-├── Makefile               # Alternative build file
-├── README.md              # Project documentation
-└── CONTRIBUTING.md        # This file
-```
+Key backend endpoints (mock server):
+- `GET /status` → server health
+- `POST /login` → success for demo payload; invalid body returns `{ success: false, message: "Invalid credentials. Please register first!" }`
+- `POST /register` → demo registration success
+- `GET /users`, `GET /crops` → sample data
 
 ---
 
 ## Contributing to the Project
 
-### Adding New Features
-
-1. **Modify the header file:**
-   - Open `backend_cpp/agriconnect.h`
-   - Add your new function declarations
-
-2. **Implement the functions:**
-   - Open `backend_cpp/agriconnect.cpp`
-   - Write your implementation
-
-3. **Update the menu:**
-   - Open `backend_cpp/main.cpp`
-   - Add menu options for your feature
-
-4. **Rebuild:**
-   ```bash
-   cd build
-   cmake --build . --config Release
+### Adding / Updating Backend Endpoints
+1. Open `backend_cpp/server_simple.cpp`
+2. Add your handler logic in `handleRequest()` or extend routing in `handleClient()`
+3. Recompile:
+   ```powershell
+   cd backend_cpp
+   g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
    ```
 
 ### Code Style
 - Use clear comments for data structures
-- Document algorithm complexity
+- Document algorithm complexity when relevant
 - Follow existing naming conventions
 - Add inline documentation
 
@@ -232,8 +112,7 @@ AgriConnect-Pakistan/
 ## Database Setup (Optional)
 
 If you want to use MySQL:
-
-```bash
+```powershell
 # 1. Install MySQL Server
 # 2. Import schema
 mysql -u root -p < database/schema.sql
@@ -243,12 +122,6 @@ mysql -u root -p < database/schema.sql
 
 ---
 
-## Need Help?
-
-- Check the [README.md](README.md) for detailed documentation
-- Review comments in source code files
-- Test with sample data (automatically loaded)
-
----
-
-**Happy Coding! 🚀**
+## Project Notes
+- Deprecated legacy files/scripts removed: old `agriconnect_*` sources and `run_simple.sh` (Linux).
+- Preferred Windows start scripts: `start_backend.bat`, `start_frontend.bat`.

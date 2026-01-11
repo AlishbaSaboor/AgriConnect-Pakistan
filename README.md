@@ -1,6 +1,6 @@
 # AgriConnect Pakistan
 
-## Simple Agricultural Supply& Cold Chain Management(C++ Console)
+## Agricultural Supply & Cold Chain (C++ Backend + Static Frontend)
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
@@ -9,21 +9,9 @@
 
 ---
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Quick Start](#quick - start)
-- [Project Structure](#project - structure)
-- [Algorithms](#algorithms)
-- [Dependencies](#dependencies)
-- [Contributing](#contributing)
-- [License](#license)
-
----
-
 ## 🌾 Overview
 
-AgriConnect Pakistan is a simple, single - file C++ console application for Windows.It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
+AgriConnect Pakistan provides a lightweight C++ HTTP backend (Windows, port 8080) and a static HTML/CSS/JS frontend (served on port 8000). It lets farmers list crops, buyers compare prices and place orders, storage owners allocate cold storage, and transport providers accept delivery requests.
 
 ---
 
@@ -36,7 +24,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 3. **Inefficient Transportation** - Difficulty finding optimal routes
 4. **Post - Harvest Losses** - Up to 30 - 40 % of crops wasted
 
-**Solution:**A technology - driven platform using optimized algorithms and data structures.
+**Solution:** A technology - driven platform using optimized algorithms and data structures.
 
 ---
 
@@ -50,7 +38,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 - Track order deliveries
 - View system statistics
 
-			### 🛒 Buyer
+### 🛒 Buyer
 - View all available crops(sorted by price using BST)
 - Compare crop prices(in - order tree traversal)
 - Place orders and specify quantities
@@ -74,23 +62,36 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 - Track delivery statistics
 - View system analytics
 
---=
+---
 ## 🛠 Quick Start
 
 ### Windows
 
-Option 1: one - click run
+Option 1: one-click start (recommended)
 
 ```
-run_simple.bat
+start_backend.bat   # Starts C++ backend on http://localhost:8080
+start_frontend.bat  # Starts static frontend on http://localhost:8000
 ```
 
-Option 2: compile manually(MinGW or MSVC build tools)
+Option 2: run from PowerShell
+
+```
+# Backend (in a new terminal)
+cd backend_cpp
+.\server.exe
+
+# Frontend (in a second terminal)
+cd ../frontend
+python -m http.server 8000
+```
+
+Option 3: compile backend yourself (MinGW or MSVC)
 
 ```
 cd backend_cpp
-g++ - std = c++17 - Wall - Wextra - O2 - o agriconnect.exe agriconnect_simple.cpp
-agriconnect.exe
+g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32
+.\server.exe
 ```
 
 ---
@@ -98,34 +99,36 @@ agriconnect.exe
 ## 🔢 Algorithms & Data Structures
 
 ### Data Structures
-- **Hash Table * *(User lookup) : O(1) average username search with chaining
-- **Binary Search Tree * *(Crops) : O(log n) insertion, automatic price sorting, in - order traversal
-- **Linked Lists * *(Orders, Transport, Storage, Vehicles, Centers) : dynamic growth, no size limits
-- **Adjacency List * *(City network) : space - efficient graph representation
-- **Min - Heap * *(Dijkstra's priority queue): efficient distance extraction
+- **Hash Table** (User lookup) : O(1) average username search with chaining
+- **Binary Search Tree** (Crops) : O(log n) insertion, automatic price sorting, in - order traversal
+- **Linked Lists** (Orders, Transport, Storage, Vehicles, Centers) : dynamic growth, no size limits
+- **Adjacency List** (City network) : space - efficient graph representation
+- **Min - Heap** (Dijkstra's priority queue): efficient distance extraction
 
 ### Algorithms
-- **Greedy First - Fit * *: Assign vehicles to transport requests(O(n))
-- **0 / 1 Knapsack(DP) * *: Optimal storage allocation to maximize budget(O(n×W))
-- **Dijkstra with Min - Heap * *: Find shortest routes between cities(O((V + E)log V))
+- **Greedy First - Fit**: Assign vehicles to transport requests(O(n))
+- **0 / 1 Knapsack(DP)**: Optimal storage allocation to maximize budget(O(n×W))
+- **Dijkstra with Min - Heap**: Find shortest routes between cities(O((V + E)log V))
 
 ---
 
 ## 📁 Project Structure
 
 ```
-AgriConnect - Pakistan /
-├── backend_cpp /
-│   └── agriconnect_simple.cpp      # Optimized C++ backend with all data structures
-├── frontend / # Static HTML / CSS / JS frontend
+AgriConnect-Pakistan/
+├── backend_cpp/
+│   ├── server_simple.cpp           # C++ HTTP backend (Winsock)
+│   └── server.exe                  # Compiled backend
+├── frontend/                       # Static HTML/CSS/JS frontend
 │   ├── index.html, login.html, register.html
 │   ├── dashboard.html, crops.html, storage.html
 │   ├── transport.html, routes.html, reports.html
-│   ├── css / style.css
+│   ├── css/style.css
 │   └── js/*.js
 ├── database/
 │   └── schema.sql
-├── run_simple.bat                  # Windows build/run
+├── start_backend.bat               # Start backend (Windows)
+├── start_frontend.bat              # Start frontend (Windows)
 ├── README.md                       # Project overview
 └── CONTRIBUTING.md                 # Build instructions
 ```
@@ -153,8 +156,8 @@ Main Menu:
 The system comes with sample data:
 
 ```
-Usernames: farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
-Password: pass123 (or admin123 for admin)
+Usernames: farmer1, farmer2, buyer1, storage_owner(ColdHub, AgriStore, FarmSafe, FreshKeep), transport_provider (FastMove, AgriTrans, GreenWay)
+Password: pass123 (for all users)
 ```
 
 ### Example Usage Scenarios
@@ -163,7 +166,7 @@ Password: pass123 (or admin123 for admin)
 
 ```
 Main Menu → 5 (Find Shortest Route)
-				Enter start city: Lahore
+Enter start city: Lahore
 Enter destination: Karachi
 
 Output:
@@ -197,30 +200,23 @@ Enter farmer: farmer1
 Output: Crop added successfully!
 ```
 
-#### 4. View Order Queue (FIFO)
-
-```
-Main Menu → Login as buyer → Orders menu → View All Orders
-
-Output: Shows all pending orders in FIFO sequence
-Position 1: Order ID 1 | User: buyer1 | Crop ID: 2 | Qty: 1000 kg
-Position 2: Order ID 2 | User: buyer1 | Crop ID: 3 | Qty: 500 kg
-```
 ---
 
 ## 📦 Dependencies
 
 - Windows with a C++17-capable compiler (MSVC or MinGW)
-- No third-party libraries
-- Console-only app; no server required
+- Winsock2 (provided by Windows SDK/Visual Studio)
+- Python 3 (for serving the static frontend on port 8000)
+- No third-party server libraries
 
----
+Backend runs on http://localhost:8080 and the frontend on http://localhost:8000. The frontend uses `frontend/js/api-config.js` with `API_BASE_URL = 'http://localhost:8080'`.
 
-## 🔧 Build Troubleshooting (Windows)
-
-- Install a compiler: Visual Studio Build Tools or `mingw-w64`
-- If `g++` is not found, open a Developer Command Prompt and use `cl`
-- Keep the project path short to avoid long-path issues when compiling
+### API Endpoints (current mock server)
+- `GET /status` → `{ status: "ok" }`
+- `POST /login` → success with mock user; invalid body returns `{ success: false, message: "Invalid credentials. Please register first!" }`
+- `POST /register` → success response
+- `GET /users` → sample user list
+- `GET /crops` → sample crops
 
 ---
 
