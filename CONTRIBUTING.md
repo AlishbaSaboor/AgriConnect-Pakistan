@@ -149,8 +149,8 @@ Main Menu:
 ```
 
 ### Test Credentials (Pre-loaded)
-- **Username:** farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
-- **Password:** pass123 (or admin123 for admin)
+- **Username:** farmer1, buyer1, storage_owner(ColdHub, AgriStore, FarmSafe, FreshKeep), transport_provider (FastMove, AgriTrans, GreenWay)
+- **Password:** pass123 (for all users)
 
 ---
 
