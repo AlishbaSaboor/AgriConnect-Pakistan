@@ -79,7 +79,7 @@ Option 2: run from PowerShell
 ```
 # Backend (in a new terminal)
 cd backend_cpp
-.\server.exe
+.\integrated_server.exe
 
 # Frontend (in a second terminal)
 cd ../frontend
@@ -90,7 +90,8 @@ Option 3: compile backend yourself (MinGW or MSVC)
 
 ```
 cd backend_cpp
-g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32.\server.exe
+g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
+.\integrated_server.exe
 ```
 
 ---
@@ -116,10 +117,10 @@ g++ -std=c++17 -O2 -o server.exe server_simple.cpp -lws2_32.\server.exe
 ```
 AgriConnect-Pakistan/
 ├── backend_cpp/
-|   ├── agriconnect_simple.cpp           # C++ backend
-│   ├── server_simple.cpp           # C++ HTTP backend (Winsock)
-│   └── server.exe                  # Compiled backend
-├── frontend/                       # Static HTML/CSS/JS frontend
+│   ├── agriconnect_simple.cpp        # Legacy console logic (data structures)
+│   ├── integrated_server.cpp         # HTTP backend (Winsock) + real data structures
+│   └── integrated_server.exe         # Compiled backend
+├── frontend/                         # Static HTML/CSS/JS frontend
 │   ├── index.html, login.html, register.html
 │   ├── dashboard.html, crops.html, storage.html
 │   ├── transport.html, routes.html, reports.html
@@ -127,10 +128,10 @@ AgriConnect-Pakistan/
 │   └── js/*.js
 ├── database/
 │   └── schema.sql
-├── start_backend.bat               # Start backend (Windows)
-├── start_frontend.bat              # Start frontend (Windows)
-├── README.md                       # Project overview
-└── CONTRIBUTING.md                 # Build instructions
+├── start_backend.bat                 # Start backend (Windows)
+├── start_frontend.bat                # Start frontend (Windows)
+├── README.md                         # Project overview
+└── CONTRIBUTING.md                   # Build instructions
 ```
 
 ---
