@@ -141,8 +141,8 @@ Main Menu:
 The system comes with sample data:
 
 ```
-Usernames: farmer1, farmer2, buyer1, storage_owner1, transport_provider1, admin
-Password: pass123 (or admin123 for admin)
+Usernames: farmer1, farmer2, buyer1, storage_owner(ColdHub, AgriStore, FarmSafe, FreshKeep), transport_provider (FastMove, AgriTrans, GreenWay)
+Password: pass123 (for all users)
 ```
 
 ### Example Usage Scenarios
@@ -185,15 +185,6 @@ Enter farmer: farmer1
 Output: Crop added successfully!
 ```
 
-#### 4. View Order Queue (FIFO)
-
-```
-Main Menu → Login as buyer → Orders menu → View All Orders
-
-Output: Shows all pending orders in FIFO sequence
-Position 1: Order ID 1 | User: buyer1 | Crop ID: 2 | Qty: 1000 kg
-Position 2: Order ID 2 | User: buyer1 | Crop ID: 3 | Qty: 500 kg
-```
 ---
 
 ## 📦 Dependencies
