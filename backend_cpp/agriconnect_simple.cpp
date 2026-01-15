@@ -1,7 +1,12 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <functional>
 using namespace std;
+
+// Forward declarations for JSON handler
+void saveAllData();
+void loadAllData();
 
 const int HASH_TABLE_SIZE = 101;
 const int MAX_CITIES = 8;
@@ -562,6 +567,7 @@ void registerUser() {
 
     insertUser(newUser);
     cout << "Registration successful! User ID: " << newUser->userId << "\n";
+    saveAllData();  // Save to JSON after registration
 }
 
 bool loginUser() {
@@ -630,6 +636,7 @@ void addCrop() {
     cropCount++;
 
     cout << "Crop added successfully! Crop ID: " << newCrop->cropId << "\n";
+    saveAllData();  // Save to JSON after adding crop
 }
 
 void viewAllCrops() {
@@ -701,6 +708,7 @@ void requestCrop() {
     addOrder(newOrder);
     cout << "Crop request sent to farmer! Order ID: " << newOrder->orderId << "\n";
     cout << "Awaiting farmer approval before payment.\n";
+    saveAllData();  // Save to JSON after creating order
 }
 
 void viewMyOrders() {
@@ -741,6 +749,7 @@ void payForOrder() {
                 curr->paid = true;
                 curr->paymentDate = getCurrentDate();
                 cout << "Payment successful!\n";
+                saveAllData();  // Save to JSON after payment
             }
             return;
         }
@@ -806,6 +815,7 @@ void approveCropRequest() {
             else {
                 cout << "Request rejected.\n";
             }
+            saveAllData();  // Save to JSON after approving/rejecting order
             return;
         }
         curr = curr->next;
@@ -946,6 +956,7 @@ void requestTransport() {
         cout << "\nTransport request created! Request ID: " << req->requestId << "\n";
         cout << "Total crops: " << req->cropCount << "\n";
         cout << "Total weight: " << req->weight << " kg\n";
+        saveAllData();  // Save to JSON after transport request
 
     }
     else if (user->role == "buyer") {
@@ -1254,6 +1265,7 @@ void requestStorage() {
 
     addStorageRequest(req);
     cout << "Storage request sent! Request ID: " << req->requestId << "\n";
+    saveAllData();  // Save to JSON after storage request
 }
 
 void viewStorageRequests() {
@@ -2365,9 +2377,18 @@ void storageOwnerMenu() {
     } while (choice != 0);
 }
 
+// Include JSON handler implementation
+#include "json_handler.cpp"
 
 int main() {
-    initializeSampleData();
+    // Load existing data from JSON files
+    loadAllData();
+    
+    // If no data loaded, initialize sample data
+    if (userCount == 0) {
+        cout << "\n[First Run] Initializing sample data...\n";
+        initializeSampleData();
+    }
 
     int choice;
     do {
@@ -2409,6 +2430,8 @@ int main() {
         }
     } while (choice != 0);
 
-    cout << "\nThank you for using AgriConnect Pakistan!\n";
+    cout << "\n[Saving] Saving all data to JSON files...\n";
+    saveAllData();
+    cout << "Thank you for using AgriConnect Pakistan!\n";
     return 0;
 }
