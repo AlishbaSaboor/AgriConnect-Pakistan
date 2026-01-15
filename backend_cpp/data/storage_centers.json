@@ -1,0 +1,34 @@
+[
+  {
+    "organization": "ColdHub",
+    "totalCapacity": 10000,
+    "availableCapacity": 10000,
+    "temperature": 4.0,
+    "location": "Lahore",
+    "pricePerKg": 50
+  },
+  {
+    "organization": "AgriStore",
+    "totalCapacity": 8000,
+    "availableCapacity": 8000,
+    "temperature": 5.0,
+    "location": "Karachi",
+    "pricePerKg": 45
+  },
+  {
+    "organization": "FarmSafe",
+    "totalCapacity": 6000,
+    "availableCapacity": 6000,
+    "temperature": 3.0,
+    "location": "Islamabad",
+    "pricePerKg": 55
+  },
+  {
+    "organization": "FreshKeep",
+    "totalCapacity": 12000,
+    "availableCapacity": 12000,
+    "temperature": 4.5,
+    "location": "Multan",
+    "pricePerKg": 48
+  }
+]

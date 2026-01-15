@@ -83,7 +83,7 @@ g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp; .\agriconnect.exe
 ```
 
 ```batch
-@REM CMD/Batch (Windows)
+CMD/Batch (Windows)
 cd backend_cpp
 g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp && .\agriconnect.exe
 ```

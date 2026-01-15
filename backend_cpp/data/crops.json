@@ -1,0 +1,41 @@
+[
+  {
+    "cropId": 2001,
+    "farmerId": 1001,
+    "cropType": "Wheat",
+    "quantity": 5000,
+    "storageQuantity": 0,
+    "quality": "A",
+    "pricePerKg": 60,
+    "available": true,
+    "dateAdded": "01-01-2026",
+    "expiryDate": "31-12-2026",
+    "storageCenter": ""
+  },
+  {
+    "cropId": 2002,
+    "farmerId": 1001,
+    "cropType": "Rice",
+    "quantity": 3000,
+    "storageQuantity": 0,
+    "quality": "B",
+    "pricePerKg": 80,
+    "available": true,
+    "dateAdded": "01-01-2026",
+    "expiryDate": "31-12-2026",
+    "storageCenter": ""
+  },
+  {
+    "cropId": 2003,
+    "farmerId": 1001,
+    "cropType": "Mango",
+    "quantity": 2000,
+    "storageQuantity": 0,
+    "quality": "A",
+    "pricePerKg": 150,
+    "available": true,
+    "dateAdded": "01-01-2026",
+    "expiryDate": "31-12-2026",
+    "storageCenter": ""
+  }
+]

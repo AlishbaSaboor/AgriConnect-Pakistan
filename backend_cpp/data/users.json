@@ -1,0 +1,72 @@
+[
+  {
+    "userId": 1001,
+    "username": "farmer1",
+    "password": "pass123",
+    "role": "farmer",
+    "active": false
+  },
+  {
+    "userId": 1002,
+    "username": "buyer1",
+    "password": "pass123",
+    "role": "buyer",
+    "active": false
+  },
+  {
+    "userId": 1100,
+    "username": "FastMove",
+    "password": "pass123",
+    "role": "transport_provider",
+    "active": false
+  },
+  {
+    "userId": 1101,
+    "username": "AgriTrans",
+    "password": "pass123",
+    "role": "transport_provider",
+    "active": false
+  },
+  {
+    "userId": 1102,
+    "username": "GreenWay",
+    "password": "pass123",
+    "role": "transport_provider",
+    "active": false
+  },
+  {
+    "userId": 1200,
+    "username": "ColdHub",
+    "password": "pass123",
+    "role": "storage_owner",
+    "active": false
+  },
+  {
+    "userId": 1201,
+    "username": "AgriStore",
+    "password": "pass123",
+    "role": "storage_owner",
+    "active": false
+  },
+  {
+    "userId": 1202,
+    "username": "FarmSafe",
+    "password": "pass123",
+    "role": "storage_owner",
+    "active": false
+  },
+  {
+    "userId": 1203,
+    "username": "FreshKeep",
+    "password": "pass123",
+    "role": "storage_owner",
+    "active": false
+  },
+  {
+    "userId": 27591,
+    "username": "alishba",
+    "password": "123",
+    "role": "farmer",
+    "active": false
+  }
+]
