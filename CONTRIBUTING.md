@@ -14,11 +14,16 @@
 ### Option 1: One-click 
 Double-click `start_backend.bat` from the project root. This starts the backend on http://localhost:8080.
 
-### Option 2: PowerShell / Command Prompt
+### Option 2: PowerShell
 ```powershell
 cd backend_cpp
-g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
-.\integrated_server.exe
+g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++; .\integrated_server.exe
+```
+
+### Option 2b: Command Prompt (CMD)
+```batch
+cd backend_cpp
+g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++ && .\integrated_server.exe
 ```
 
 Notes:
@@ -98,7 +103,13 @@ Key backend endpoints (mock server):
 3. Recompile:
    ```powershell
    cd backend_cpp
-   g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
+   # PowerShell: use semicolon (;)
+   g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++; .\integrated_server.exe
+   ```
+   
+   Or in Command Prompt (CMD): use && operator
+   ```batch
+   g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++ && .\integrated_server.exe
    ```
 
 ### Code Style

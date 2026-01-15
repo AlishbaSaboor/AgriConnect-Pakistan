@@ -67,16 +67,37 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 
 ### Windows
 
-Option 1: one-click start
+#### Option 1: Console Application with JSON Persistence 
 
+```bash
+cd backend_cpp
+compile.bat              # Auto-compiles and runs
 ```
+
+**Or manually compile and run:**
+
+```powershell
+# PowerShell (Windows)
+cd backend_cpp
+g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp; .\agriconnect.exe
+```
+
+```batch
+@REM CMD/Batch (Windows)
+cd backend_cpp
+g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp && .\agriconnect.exe
+```
+
+#### Option 2: HTTP Backend + Frontend (Full Web Application)
+
+```bash
 start_backend.bat   # Starts C++ backend on http://localhost:8080
 start_frontend.bat  # Starts static frontend on http://localhost:8000
 ```
 
-Option 2: run from PowerShell
+#### Option 3: Manual Setup
 
-```
+```bash
 # Backend (in a new terminal)
 cd backend_cpp
 .\integrated_server.exe
@@ -86,17 +107,20 @@ cd ../frontend
 python -m http.server 8000
 ```
 
-Option 3: compile backend yourself (MinGW or MSVC)
+#### Option 4: Compile Backend Yourself (MinGW or MSVC)
 
-```
+```bash
 cd backend_cpp
+# For console app with JSON persistence:
+g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp
+
+# For HTTP server:
 g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
-.\integrated_server.exe
 ```
 
 ---
 
-## 🔢 Algorithms & Data Structures
+## �🔢 Algorithms & Data Structures
 
 ### Data Structures
 - **Hash Table** (User lookup) : O(1) average username search with chaining
@@ -117,18 +141,30 @@ g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -stat
 ```
 AgriConnect-Pakistan/
 ├── backend_cpp/
-│   ├── agriconnect_simple.cpp        # Legacy console logic (data structures)
+│   ├── agriconnect_simple.cpp        # Main console application with all data structures
+│   ├── json_handler.h                # JSON persistence header
+│   ├── json_handler.cpp              # JSON save/load implementation
+│   ├── compile.bat                   # One-click compilation script
 │   ├── integrated_server.cpp         # HTTP backend (Winsock) + real data structures
-│   └── integrated_server.exe         # Compiled backend
+│   ├── integrated_server.exe         # Compiled HTTP server
+│   ├── agriconnect.exe               # Compiled console app with JSON persistence
+│   └── data/                         # JSON data storage (auto-created)
+│       ├── users.json                # Persistent user data
+│       ├── crops.json                # Persistent crop listings
+│       ├── orders.json               # Persistent orders
+│       ├── storage_requests.json     # Persistent storage requests
+│       ├── transport_requests.json   # Persistent transport requests
+│       ├── vehicles.json             # Persistent vehicle data
+│       └── storage_centers.json      # Persistent storage centers
 ├── frontend/                         # Static HTML/CSS/JS frontend
 │   ├── index.html, login.html, register.html
 │   ├── dashboard.html, crops.html, storage.html
 │   ├── transport.html, routes.html, reports.html
 │   ├── css/style.css
-│   └── js/*.js
+│   └── js/*.js (api-config, login, register, dashboard, etc.)
 ├── database/
-│   └── schema.sql
-├── start_backend.bat                 # Start backend (Windows)
+│   └── schema.sql                    # MySQL schema (optional migration)
+├── start_backend.bat                 # Start HTTP backend (Windows)
 ├── start_frontend.bat                # Start frontend (Windows)
 ├── README.md                         # Project overview
 └── CONTRIBUTING.md                   # Build instructions
