@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport Requests - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="transport.html">My Fleet</a></li>
+                <li><a href="transport-requests.html">Requests</a></li>
+                <li><a href="routes.html">Routes</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>🚚 Transport Management</h2>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('pending')">📨 Pending Requests</button>
+                <button class="tab-btn" onclick="switchTab('active')">🚛 Active Deliveries</button>
+                <button class="tab-btn" onclick="switchTab('completed')">✓ Completed</button>
+                <button class="tab-btn" onclick="switchTab('fleet')">🚗 My Fleet</button>
+            </div>
+
+            <!-- TAB 1: Pending Requests -->
+            <div id="pendingTab" class="tab-content" style="display:block;">
+                <h3>Pending Transport Requests</h3>
+                <p class="text-muted">Accept or reject these requests to grow your business</p>
+
+                <div class="table-container">
+                    <table id="pendingTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>From</th>
+                                <th>Crops</th>
+                                <th>Total Weight</th>
+                                <th>Budget</th>
+                                <th>Posted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingTableBody">
+                            <tr><td colspan="7" class="text-center">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: Active Deliveries -->
+            <div id="activeTab" class="tab-content" style="display:none;">
+                <h3>Active Deliveries</h3>
+                
+                <div class="table-container">
+                    <table id="activeTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>From</th>
+                                <th>Destination</th>
+                                <th>Weight</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activeTableBody">
+                            <tr><td colspan="7" class="text-center">No active deliveries</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: Completed -->
+            <div id="completedTab" class="tab-content" style="display:none;">
+                <h3>Completed Deliveries</h3>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Completed:</span>
+                        <span class="stat-value" id="totalCompleted">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Earnings:</span>
+                        <span class="stat-value" id="totalEarnings">0 PKR</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Rating:</span>
+                        <span class="stat-value" id="avgRating">⭐ 4.8</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="completedTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>From</th>
+                                <th>Weight</th>
+                                <th>Earnings</th>
+                                <th>Completed Date</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="completedTableBody">
+                            <tr><td colspan="6" class="text-center">No completed deliveries</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: Fleet Management -->
+            <div id="fleetTab" class="tab-content" style="display:none;">
+                <h3>My Fleet</h3>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showAddVehicleForm()">+ Add Vehicle</button>
+                </div>
+
+                <div class="form-container" id="addVehicleForm" style="display:none;">
+                    <h4>Register New Vehicle</h4>
+                    <form id="vehicleForm">
+                        <div class="form-group">
+                            <label for="vehicleType">Vehicle Type</label>
+                            <select id="vehicleType" required>
+                                <option value="">-- Select --</option>
+                                <option value="truck">Truck</option>
+                                <option value="van">Van</option>
+                                <option value="motorcycle">Motorcycle</option>
+                                <option value="car">Car</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleCapacity">Capacity (kg)</label>
+                            <input type="number" id="vehicleCapacity" min="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicleNumber">Vehicle Number/License</label>
+                            <input type="text" id="vehicleNumber" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register Vehicle</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideAddVehicleForm()">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <table id="fleetTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Type</th>
+                                <th>Capacity (kg)</th>
+                                <th>Number</th>
+                                <th>Status</th>
+                                <th>Trips</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fleetTableBody">
+                            <tr><td colspan="7" class="text-center">No vehicles registered</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Request Details Modal -->
+            <div id="requestModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeRequestModal()">&times;</span>
+                    <h3>Request Details</h3>
+                    
+                    <div id="requestDetails"></div>
+
+                    <div style="margin-top: 20px;">
+                        <h4>Vehicle Assignment</h4>
+                        <div id="vehicleSelector">
+                            <!-- Vehicles will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="acceptRequest()">✓ Accept Request</button>
+                        <button class="btn btn-danger" onclick="rejectRequest()">✗ Reject Request</button>
+                        <button class="btn btn-secondary" onclick="closeRequestModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api-config.js"></script>
+    <script src="js/transport-requests.js"></script>
+</body>
+</html>

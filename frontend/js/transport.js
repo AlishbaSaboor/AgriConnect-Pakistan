@@ -1,13 +1,8 @@
 // Transport Management JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
+    displayRoleSpecificUI();
     loadTransport();
-    
-    // Check if user is transport provider to show add transport button
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    if (currentUser.role === 'transport_provider') {
-        document.getElementById('transportProviderActions').style.display = 'block';
-    }
     
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
@@ -16,12 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'login.html';
     });
     
-    // Add transport form submission
-    document.getElementById('transportForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        addTransport();
-    });
+    // Add transport form submission (for transport providers)
+    const transportForm = document.getElementById('transportForm');
+    if (transportForm) {
+        transportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            addTransport();
+        });
+    }
 });
+
+function displayRoleSpecificUI() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
+    
+    // Show role-specific actions
+    if (userRole === 'transport_provider') {
+        const transportProviderActions = document.getElementById('transportProviderActions');
+        if (transportProviderActions) transportProviderActions.style.display = 'block';
+    }
+}
 
 function checkAuth() {
     const currentUser = sessionStorage.getItem('currentUser');
@@ -67,6 +76,8 @@ function addTransport() {
 }
 
 function loadTransport() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
     const transportList = JSON.parse(localStorage.getItem('transport')) || [];
     const tbody = document.getElementById('transportTableBody');
     
@@ -76,7 +87,22 @@ function loadTransport() {
     }
     
     tbody.innerHTML = '';
-    transportList.forEach((transport, index) => {
+    
+    let filteredTransport = transportList;
+    
+    // Filter based on user role
+    if (userRole === 'transport_provider') {
+        // Transport providers only see their own services
+        filteredTransport = transportList.filter(transport => transport.provider === currentUser.username);
+    }
+    // Farmers and buyers see all transport services
+    
+    if (filteredTransport.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">No transport services available</td></tr>';
+        return;
+    }
+    
+    filteredTransport.forEach((transport, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${index + 1}</td>

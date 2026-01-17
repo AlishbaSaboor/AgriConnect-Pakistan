@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="crops.html">Browse Crops</a></li>
+                <li><a href="buyer-orders.html">My Orders</a></li>
+                <li><a href="routes.html">Routes</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>📦 My Orders & Deliveries</h2>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('orders')">🛒 My Orders</button>
+                <button class="tab-btn" onclick="switchTab('payments')">💳 Payments</button>
+                <button class="tab-btn" onclick="switchTab('tracking')">📍 Track Deliveries</button>
+                <button class="tab-btn" onclick="switchTab('notifications')">🔔 Notifications</button>
+            </div>
+
+            <!-- TAB 1: My Orders -->
+            <div id="ordersTab" class="tab-content" style="display:block;">
+                <h3>All My Orders</h3>
+                <div class="filter-controls">
+                    <select id="orderFilter" onchange="filterOrders()">
+                        <option value="all">All Orders</option>
+                        <option value="pending">Pending Approval</option>
+                        <option value="approved">Approved</option>
+                        <option value="paid">Paid</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Crop</th>
+                                <th>Quantity (kg)</th>
+                                <th>Price/kg</th>
+                                <th>Total Cost</th>
+                                <th>Farmer</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr><td colspan="8">Loading orders...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: Payments -->
+            <div id="paymentsTab" class="tab-content" style="display:none;">
+                <h3>Payment Management</h3>
+                <div class="form-container">
+                    <h4>Make Payment for Order</h4>
+                    <form id="paymentForm">
+                        <div class="form-group">
+                            <label for="orderIdForPayment">Select Order to Pay</label>
+                            <select id="orderIdForPayment" required>
+                                <option value="">-- Select Approved Order --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Amount: <strong id="paymentAmount">0</strong> PKR</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Payment Method</label>
+                            <select id="paymentMethod" required>
+                                <option value="">-- Select Method --</option>
+                                <option value="cash">Cash on Delivery</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="easypaisa">EasyPaisa</option>
+                                <option value="jazzash">JazzCash</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Complete Payment</button>
+                    </form>
+                </div>
+
+                <h4 style="margin-top: 30px;">Payment History</h4>
+                <div class="table-container">
+                    <table id="paymentHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Crop</th>
+                                <th>Amount</th>
+                                <th>Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentHistoryBody">
+                            <tr><td colspan="6">No payments yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: Track Deliveries -->
+            <div id="trackingTab" class="tab-content" style="display:none;">
+                <h3>Track My Deliveries</h3>
+                
+                <div class="table-container">
+                    <h4>Active Shipments</h4>
+                    <table id="shipmentTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Crop</th>
+                                <th>Quantity</th>
+                                <th>Transport Provider</th>
+                                <th>Status</th>
+                                <th>Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shipmentTableBody">
+                            <tr><td colspan="6">No active shipments</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="shipmentDetails" style="margin-top: 30px; display:none;">
+                    <h4>Shipment Details</h4>
+                    <div class="result-box">
+                        <p><strong>Provider:</strong> <span id="providerName"></span></p>
+                        <p><strong>Vehicle Type:</strong> <span id="vehicleType"></span></p>
+                        <p><strong>Current Status:</strong> <span id="currentStatus"></span></p>
+                        <p><strong>Estimated Delivery:</strong> <span id="estimatedDelivery"></span></p>
+                        <div style="background-color: #e0e0e0; border-radius: 10px; height: 20px; margin: 15px 0;">
+                            <div id="progressBar" style="background-color: #2c5f2d; width: 0%; height: 100%; border-radius: 10px; transition: width 0.3s;"></div>
+                        </div>
+                        <p id="progressText">0% Complete</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Notifications -->
+            <div id="notificationsTab" class="tab-content" style="display:none;">
+                <h3>My Notifications</h3>
+                <div id="notificationsContainer">
+                    <div class="notification">
+                        <p>No new notifications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api-config.js"></script>
+    <script src="js/buyer-orders.js"></script>
+</body>
+</html>

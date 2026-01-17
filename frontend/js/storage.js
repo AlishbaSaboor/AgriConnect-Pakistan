@@ -1,13 +1,8 @@
 // Storage Management JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
+    displayRoleSpecificUI();
     loadStorage();
-    
-    // Check if user is storage owner to show add storage button
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    if (currentUser.role === 'storage_owner') {
-        document.getElementById('storageOwnerActions').style.display = 'block';
-    }
     
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
@@ -16,18 +11,35 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'login.html';
     });
     
-    // Add storage form submission
-    document.getElementById('storageForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        addStorage();
-    });
+    // Add storage form submission (for storage owners)
+    const storageForm = document.getElementById('storageForm');
+    if (storageForm) {
+        storageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            addStorage();
+        });
+    }
     
-    // Allocate storage form submission
-    document.getElementById('allocateStorageForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        allocateStorage();
-    });
+    // Allocate storage form submission (for farmers)
+    const allocateStorageForm = document.getElementById('allocateStorageForm');
+    if (allocateStorageForm) {
+        allocateStorageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            allocateStorage();
+        });
+    }
 });
+
+function displayRoleSpecificUI() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
+    
+    // Show role-specific actions
+    if (userRole === 'storage_owner') {
+        const storageOwnerActions = document.getElementById('storageOwnerActions');
+        if (storageOwnerActions) storageOwnerActions.style.display = 'block';
+    }
+}
 
 function checkAuth() {
     const currentUser = sessionStorage.getItem('currentUser');
@@ -75,6 +87,8 @@ function addStorage() {
 }
 
 function loadStorage() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
     const storageList = JSON.parse(localStorage.getItem('storage')) || [];
     const tbody = document.getElementById('storageTableBody');
     
@@ -84,7 +98,22 @@ function loadStorage() {
     }
     
     tbody.innerHTML = '';
-    storageList.forEach((storage, index) => {
+    
+    let filteredStorage = storageList;
+    
+    // Filter based on user role
+    if (userRole === 'storage_owner') {
+        // Storage owners only see their own storage centers
+        filteredStorage = storageList.filter(storage => storage.owner === currentUser.username);
+    }
+    // Farmers and others see all storage centers
+    
+    if (filteredStorage.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6">No storage centers available</td></tr>';
+        return;
+    }
+    
+    filteredStorage.forEach((storage, index) => {
         const utilizationPercent = ((storage.capacity - storage.available) / storage.capacity * 100).toFixed(1);
         const status = storage.available > 0 ? 'Available' : 'Full';
         const statusClass = storage.available > 0 ? 'text-success' : 'text-danger';

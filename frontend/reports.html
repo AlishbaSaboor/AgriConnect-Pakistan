@@ -25,9 +25,74 @@
 
     <section class="content-section">
         <div class="container">
-            <h2>📊 System Reports & Analytics</h2>
+            <h2>📊 Reports & Analytics</h2>
 
-            <div class="reports-grid">
+            <!-- Farmer Reports -->
+            <div id="farmerReports" style="display:none;">
+                <h3>👨‍🌾 Your Farming Reports</h3>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>🌾 My Crops</h3>
+                        <div class="report-content">
+                            <p>Total Crops Listed: <strong id="totalMyCrops">0</strong></p>
+                            <p>Total Quantity: <strong id="totalMyQuantity">0</strong> kg</p>
+                            <p>Total Value: <strong id="totalMyValue">0</strong> PKR</p>
+                            <p>Most Listed: <strong id="myMostListed">N/A</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buyer Reports -->
+            <div id="buyerReports" style="display:none;">
+                <h3>🛒 Your Purchasing Reports</h3>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>📦 My Orders</h3>
+                        <div class="report-content">
+                            <p>Total Orders: <strong id="myTotalOrders">0</strong></p>
+                            <p>Completed Orders: <strong id="myCompletedOrders">0</strong></p>
+                            <p>Total Spent: <strong id="myTotalSpent">0</strong> PKR</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storage Owner Reports -->
+            <div id="storageReports" style="display:none;">
+                <h3>❄️ Your Storage Reports</h3>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>📊 Storage Metrics</h3>
+                        <div class="report-content">
+                            <p>Storage Centers: <strong id="myStorageCenters">0</strong></p>
+                            <p>Total Capacity: <strong id="myTotalCapacity">0</strong> kg</p>
+                            <p>Used Capacity: <strong id="myUsedCapacity">0</strong> kg</p>
+                            <p>Utilization Rate: <strong id="myUtilization">0</strong>%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transport Provider Reports -->
+            <div id="transportReports" style="display:none;">
+                <h3>🚚 Your Transport Reports</h3>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>📊 Fleet Metrics</h3>
+                        <div class="report-content">
+                            <p>Transport Services: <strong id="myTransportServices">0</strong></p>
+                            <p>Total Capacity: <strong id="myTotalCapacity">0</strong> kg</p>
+                            <p>Most Used Route: <strong id="myMostUsedRoute">N/A</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Reports (visible to all) -->
+            <div id="systemReports">
+                <h3>📊 System Overview</h3>
+                <div class="reports-grid">
                 <div class="report-card">
                     <h3>👥 User Statistics</h3>
                     <div class="report-content">
@@ -87,6 +152,7 @@
                         <p>Storage Matching: <strong>Balances capacity and temperature</strong></p>
                         <p>Route Finding: <strong>Optimized for quickest paths</strong></p>
                     </div>
+                </div>
                 </div>
             </div>
 

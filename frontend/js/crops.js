@@ -1,13 +1,8 @@
 // Crops Management JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
+    displayRoleSpecificUI();
     loadCrops();
-    
-    // Check if user is farmer to show add crop button
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    if (currentUser.role === 'farmer') {
-        document.getElementById('farmerActions').style.display = 'block';
-    }
     
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', function(e) {
@@ -16,12 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'login.html';
     });
     
-    // Add crop form submission
-    document.getElementById('cropForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        addCrop();
-    });
+    // Add crop form submission (for farmers)
+    const cropForm = document.getElementById('cropForm');
+    if (cropForm) {
+        cropForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            addCrop();
+        });
+    }
 });
+
+function displayRoleSpecificUI() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
+    
+    // Show role-specific actions
+    if (userRole === 'farmer') {
+        const farmerActions = document.getElementById('farmerActions');
+        if (farmerActions) farmerActions.style.display = 'block';
+    }
+}
 
 function checkAuth() {
     const currentUser = sessionStorage.getItem('currentUser');
@@ -67,6 +76,8 @@ function addCrop() {
 }
 
 function loadCrops() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
     const crops = JSON.parse(localStorage.getItem('crops')) || [];
     const tbody = document.getElementById('cropsTableBody');
     
@@ -76,8 +87,32 @@ function loadCrops() {
     }
     
     tbody.innerHTML = '';
-    crops.forEach((crop, index) => {
+    
+    let filteredCrops = crops;
+    
+    // Filter based on user role
+    if (userRole === 'farmer') {
+        filteredCrops = crops.filter(crop => crop.farmer === currentUser.username);
+    }
+    // Buyers and others see all crops
+    
+    if (filteredCrops.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7">No crops available</td></tr>';
+        return;
+    }
+    
+    filteredCrops.forEach((crop, index) => {
         const row = document.createElement('tr');
+        let actionHTML = '';
+        
+        if (userRole === 'buyer') {
+            actionHTML = `<button class="btn btn-secondary" onclick="viewCropDetails(${crop.id})">Order</button>`;
+        } else if (userRole === 'farmer') {
+            actionHTML = `<button class="btn btn-secondary" onclick="viewCropDetails(${crop.id})">View</button>`;
+        } else {
+            actionHTML = `<button class="btn btn-secondary" onclick="viewCropDetails(${crop.id})">View</button>`;
+        }
+        
         row.innerHTML = `
             <td>${index + 1}</td>
             <td>${crop.type}</td>
@@ -85,9 +120,7 @@ function loadCrops() {
             <td>${crop.quality}</td>
             <td>${crop.pricePerKg}</td>
             <td>${crop.farmer}</td>
-            <td>
-                <button class="btn btn-secondary" onclick="viewCropDetails(${crop.id})">View</button>
-            </td>
+            <td>${actionHTML}</td>
         `;
         tbody.appendChild(row);
     });

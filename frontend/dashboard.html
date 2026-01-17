@@ -30,58 +30,232 @@
                 <p>Role: <span id="userRole">N/A</span></p>
             </div>
 
-            <div class="dashboard-grid">
-                <div class="dashboard-card">
-                    <h3>👨‍🌾 Crop Management</h3>
-                    <p>List, view, and manage agricultural crops</p>
-                    <a href="crops.html" class="btn btn-primary">Go to Crops</a>
+            <!-- Farmer Dashboard -->
+            <div id="farmerDashboard" class="dashboard-section" style="display:none;">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>👨‍🌾 Crop Management</h3>
+                        <p>List, view, and manage your agricultural crops</p>
+                        <a href="crops.html" class="btn btn-primary">Manage Crops</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>❄️ Cold Storage</h3>
+                        <p>Store your crops in cold storage facilities</p>
+                        <a href="storage.html" class="btn btn-primary">Storage Requests</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🚚 Transport Services</h3>
+                        <p>Request transport for your crops</p>
+                        <a href="transport.html" class="btn btn-primary">Transport Requests</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>💰 Order Approvals</h3>
+                        <p>Approve or reject incoming orders</p>
+                        <a href="routes.html" class="btn btn-primary">Manage Orders</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📊 Reports</h3>
+                        <p>View your sales and crop analytics</p>
+                        <a href="reports.html" class="btn btn-primary">View Reports</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🗺️ Route Finder</h3>
+                        <p>Find the best delivery routes</p>
+                        <a href="routes.html" class="btn btn-primary">Find Routes</a>
+                    </div>
                 </div>
 
-                <div class="dashboard-card">
-                    <h3>❄️ Cold Storage</h3>
-                    <p>View and allocate cold storage facilities</p>
-                    <a href="storage.html" class="btn btn-primary">Go to Storage</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>🚚 Transport Services</h3>
-                    <p>Schedule and track transport deliveries</p>
-                    <a href="transport.html" class="btn btn-primary">Go to Transport</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>💳 Payments</h3>
-                    <p>Process payments and view history</p>
-                    <a href="payment.html" class="btn btn-primary">Go to Payments</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>🗺️ Route Finder</h3>
-                    <p>Find the fastest delivery routes</p>
-                    <a href="routes.html" class="btn btn-primary">Find Routes</a>
-                </div>
-
-                <div class="dashboard-card">
-                    <h3>📊 Reports</h3>
-                    <p>View analytics and system reports</p>
-                    <a href="reports.html" class="btn btn-primary">View Reports</a>
+                <div class="quick-stats">
+                    <h3>Your Statistics</h3>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">My Crops:</span>
+                            <span class="stat-value" id="myCrops">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending Orders:</span>
+                            <span class="stat-value" id="pendingOrders">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Storage Used:</span>
+                            <span class="stat-value" id="storageUsed">0 kg</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="quick-stats">
-                <h3>Quick Statistics</h3>
-                <div class="stats-row">
-                    <div class="stat-item">
-                        <span class="stat-label">My Crops:</span>
-                        <span class="stat-value" id="myCrops">0</span>
+            <!-- Buyer Dashboard -->
+            <div id="buyerDashboard" class="dashboard-section" style="display:none;">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>🛒 Browse Crops</h3>
+                        <p>Browse and compare available crops from farmers</p>
+                        <a href="crops.html" class="btn btn-primary">Shop Crops</a>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Active Orders:</span>
-                        <span class="stat-value" id="activeOrders">0</span>
+
+                    <div class="dashboard-card">
+                        <h3>📦 My Orders</h3>
+                        <p>View and manage your crop orders with payments</p>
+                        <a href="buyer-orders.html" class="btn btn-primary">My Orders</a>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Storage Used:</span>
-                        <span class="stat-value" id="storageUsed">0 kg</span>
+
+                    <div class="dashboard-card">
+                        <h3>💳 Order Management</h3>
+                        <p>Process payments and track shipments</p>
+                        <a href="buyer-orders.html" class="btn btn-primary">Order Details</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🚚 Shipment Tracking</h3>
+                        <p>Track your crop shipments in real-time</p>
+                        <a href="buyer-orders.html" class="btn btn-primary">Track Shipment</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📬 Notifications</h3>
+                        <p>View order updates and delivery notifications</p>
+                        <a href="buyer-orders.html" class="btn btn-primary">Notifications</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📊 Purchase Analytics</h3>
+                        <p>View your purchase history and trends</p>
+                        <a href="reports.html" class="btn btn-primary">View Analytics</a>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <h3>Your Statistics</h3>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Active Orders:</span>
+                            <span class="stat-value" id="activeOrders">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Spent:</span>
+                            <span class="stat-value" id="totalSpent">0 PKR</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completed Orders:</span>
+                            <span class="stat-value" id="completedOrders">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Storage Owner Dashboard -->
+            <div id="storageDashboard" class="dashboard-section" style="display:none;">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>❄️ Storage Requests</h3>
+                        <p>Review and approve cold storage requests from farmers</p>
+                        <a href="storage-requests.html" class="btn btn-primary">Manage Requests</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📦 Stored Crops</h3>
+                        <p>View crops currently in storage and manage inventory</p>
+                        <a href="storage-requests.html" class="btn btn-primary">Stored Inventory</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>💰 Revenue Tracking</h3>
+                        <p>View storage revenue from released crops</p>
+                        <a href="storage-requests.html" class="btn btn-primary">Revenue Report</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📊 Capacity Management</h3>
+                        <p>Monitor and update your storage center capacity</p>
+                        <a href="storage-requests.html" class="btn btn-primary">Capacity Manager</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📋 Storage Analytics</h3>
+                        <p>View detailed storage performance metrics</p>
+                        <a href="reports.html" class="btn btn-primary">Analytics</a>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <h3>Storage Statistics</h3>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Capacity:</span>
+                            <span class="stat-value" id="totalCapacity">0 kg</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Used Capacity:</span>
+                            <span class="stat-value" id="usedCapacity">0 kg</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending Requests:</span>
+                            <span class="stat-value" id="pendingRequests">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transport Provider Dashboard -->
+            <div id="transportDashboard" class="dashboard-section" style="display:none;">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>🚚 Transport Requests</h3>
+                        <p>Review, accept and manage transport requests</p>
+                        <a href="transport-requests.html" class="btn btn-primary">Manage Requests</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📍 Active Shipments</h3>
+                        <p>Track ongoing deliveries and shipments</p>
+                        <a href="transport-requests.html" class="btn btn-primary">Active Deliveries</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>🚛 Fleet Management</h3>
+                        <p>Manage your vehicles and fleet status</p>
+                        <a href="transport-requests.html" class="btn btn-primary">Fleet Manager</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>✅ Completed Deliveries</h3>
+                        <p>View completed shipments and earnings</p>
+                        <a href="transport-requests.html" class="btn btn-primary">Completed</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>💰 Earnings & Revenue</h3>
+                        <p>View transport revenue and payment history</p>
+                        <a href="transport-requests.html" class="btn btn-primary">Earnings</a>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>📊 Performance Report</h3>
+                        <p>View performance metrics and analytics</p>
+                        <a href="reports.html" class="btn btn-primary">Performance</a>
+                    </div>
+                </div>
+
+                <div class="quick-stats">
+                    <h3>Transport Statistics</h3>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Active Vehicles:</span>
+                            <span class="stat-value" id="activeVehicles">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pending Requests:</span>
+                            <span class="stat-value" id="pendingRequests">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Completed Deliveries:</span>
+                            <span class="stat-value" id="completedDeliveries">0</span>
+                        </div>
                     </div>
                 </div>
             </div>

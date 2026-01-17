@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage Management - AgriConnect Pakistan</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>🌾 AgriConnect Pakistan</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="storage-requests.html">Manage Requests</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="content-section">
+        <div class="container">
+            <h2>❄️ Cold Storage Management</h2>
+
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('pending')">📨 Pending Requests</button>
+                <button class="tab-btn" onclick="switchTab('approved')">✓ Accepted Requests</button>
+                <button class="tab-btn" onclick="switchTab('released')">📤 Released Crops</button>
+                <button class="tab-btn" onclick="switchTab('capacity')">📊 Capacity Manager</button>
+            </div>
+
+            <!-- TAB 1: Pending Requests -->
+            <div id="pendingTab" class="tab-content" style="display:block;">
+                <h3>Pending Storage Requests</h3>
+                <p class="text-muted">Review and approve storage allocation requests from farmers</p>
+
+                <div class="table-container">
+                    <table id="pendingTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Farmer</th>
+                                <th>Crop Type</th>
+                                <th>Quantity (kg)</th>
+                                <th>Budget</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pendingTableBody">
+                            <tr><td colspan="8" class="text-center">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: Accepted Requests -->
+            <div id="approvedTab" class="tab-content" style="display:none;">
+                <h3>Accepted Storage Requests</h3>
+                
+                <div class="table-container">
+                    <table id="approvedTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Farmer</th>
+                                <th>Crop</th>
+                                <th>Stored Qty</th>
+                                <th>Stored Date</th>
+                                <th>Expected Release</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approvedTableBody">
+                            <tr><td colspan="8" class="text-center">No accepted requests</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: Released Crops -->
+            <div id="releasedTab" class="tab-content" style="display:none;">
+                <h3>Released Crops</h3>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Released:</span>
+                        <span class="stat-value" id="totalReleased">0 kg</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Revenue Earned:</span>
+                        <span class="stat-value" id="totalRevenue">0 PKR</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Avg Rating:</span>
+                        <span class="stat-value" id="avgRating">⭐ 4.7</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="releasedTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Farmer</th>
+                                <th>Crop</th>
+                                <th>Quantity</th>
+                                <th>Storage Days</th>
+                                <th>Charges</th>
+                                <th>Released Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="releasedTableBody">
+                            <tr><td colspan="7" class="text-center">No released crops</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: Capacity Manager -->
+            <div id="capacityTab" class="tab-content" style="display:none;">
+                <h3>Storage Capacity Management</h3>
+
+                <div class="capacity-cards">
+                    <div class="capacity-card">
+                        <h4>📊 Current Utilization</h4>
+                        <div id="utilizationStats"></div>
+                    </div>
+
+                    <div class="capacity-card">
+                        <h4>🔄 Available Capacity</h4>
+                        <div id="availableCapacityStats"></div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h4>Update Storage Capacity</h4>
+                    <form id="capacityForm">
+                        <div class="form-group">
+                            <label for="newCapacity">New Total Capacity (kg)</label>
+                            <input type="number" id="newCapacity" min="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Current Capacity: <strong id="currentCapacity">0</strong> kg</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Capacity</button>
+                    </form>
+                </div>
+
+                <div class="table-container">
+                    <h4>Optimal Allocation Recommendations</h4>
+                    <table id="optimizationTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Farmer</th>
+                                <th>Crop</th>
+                                <th>Requested Qty</th>
+                                <th>Recommendation</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody id="optimizationTableBody">
+                            <tr><td colspan="6" class="text-center">No pending recommendations</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Request Details Modal -->
+            <div id="requestModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close" onclick="closeRequestModal()">&times;</span>
+                    <h3>Storage Request Details</h3>
+                    
+                    <div id="requestDetails"></div>
+
+                    <div style="margin-top: 20px;">
+                        <h4>Make Decision</h4>
+                        <div class="form-group">
+                            <label>Approve this request?</label>
+                            <p><small>Approving will deduct <strong id="requestQuantity">0</strong> kg from available capacity</small></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="approveRequest()">✓ Approve Request</button>
+                        <button class="btn btn-danger" onclick="rejectRequest()">✗ Reject Request</button>
+                        <button class="btn btn-secondary" onclick="closeRequestModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AgriConnect Pakistan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api-config.js"></script>
+    <script src="js/storage-requests.js"></script>
+</body>
+</html>

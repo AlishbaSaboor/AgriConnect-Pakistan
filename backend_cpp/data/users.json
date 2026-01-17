@@ -1,5 +1,12 @@
 [
   {
+    "userId": 33109,
+    "username": "maria",
+    "password": "pas123",
+    "role": "farmer",
+    "active": true
+  },
+  {
     "userId": 1001,
     "username": "farmer1",
     "password": "pass123",

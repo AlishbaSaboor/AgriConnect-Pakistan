@@ -1,6 +1,7 @@
 // Reports JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     checkAuth();
+    displayRoleSpecificReports();
     loadReports();
     
     // Logout functionality
@@ -19,107 +20,148 @@ function checkAuth() {
     }
 }
 
+function displayRoleSpecificReports() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
+    
+    // Hide all report sections
+    const systemReports = document.getElementById('systemReports');
+    const farmerReports = document.getElementById('farmerReports');
+    const buyerReports = document.getElementById('buyerReports');
+    const storageReports = document.getElementById('storageReports');
+    const transportReports = document.getElementById('transportReports');
+    
+    if (systemReports) systemReports.style.display = 'none';
+    if (farmerReports) farmerReports.style.display = 'none';
+    if (buyerReports) buyerReports.style.display = 'none';
+    if (storageReports) storageReports.style.display = 'none';
+    if (transportReports) transportReports.style.display = 'none';
+    
+    // Show role-specific reports
+    if (userRole === 'farmer' && farmerReports) {
+        farmerReports.style.display = 'block';
+        loadFarmerReports();
+    } else if (userRole === 'buyer' && buyerReports) {
+        buyerReports.style.display = 'block';
+        loadBuyerReports();
+    } else if (userRole === 'storage_owner' && storageReports) {
+        storageReports.style.display = 'block';
+        loadStorageReports();
+    } else if (userRole === 'transport_provider' && transportReports) {
+        transportReports.style.display = 'block';
+        loadTransportReports();
+    }
+}
+
 function loadReports() {
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    const userRole = currentUser.role.toLowerCase();
+    
     // Get all data from localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const crops = JSON.parse(localStorage.getItem('crops')) || [];
     const storage = JSON.parse(localStorage.getItem('storage')) || [];
     const transport = JSON.parse(localStorage.getItem('transport')) || [];
     
-    // User Statistics
-    document.getElementById('totalUsers').textContent = users.length;
+    if (userRole === 'farmer') {
+        loadFarmerReports(currentUser, crops);
+    } else if (userRole === 'buyer') {
+        loadBuyerReports(currentUser, crops);
+    } else if (userRole === 'storage_owner') {
+        loadStorageReports(currentUser, storage);
+    } else if (userRole === 'transport_provider') {
+        loadTransportReports(currentUser, transport);
+    }
+}
+
+function loadFarmerReports(currentUser, crops) {
+    const myCrops = crops.filter(c => c.farmer === currentUser.username);
     
-    const farmers = users.filter(u => u.role === 'farmer').length;
-    const buyers = users.filter(u => u.role === 'buyer').length;
-    const storageOwners = users.filter(u => u.role === 'storage_owner').length;
-    const transportProviders = users.filter(u => u.role === 'transport_provider').length;
+    let totalQuantity = 0;
+    let totalValue = 0;
+    const cropTypes = {};
     
-    document.getElementById('totalFarmers').textContent = farmers;
-    document.getElementById('totalBuyers').textContent = buyers;
-    document.getElementById('totalStorageOwners').textContent = storageOwners;
-    document.getElementById('totalTransportProviders').textContent = transportProviders;
-    
-    // Crop Statistics
-    document.getElementById('totalCropsListed').textContent = crops.length;
-    
-    let totalCropQuantity = 0;
-    let totalCropValue = 0;
-    const cropTypeCounts = {};
-    
-    crops.forEach(crop => {
-        totalCropQuantity += crop.quantity;
-        totalCropValue += crop.quantity * crop.pricePerKg;
-        
-        cropTypeCounts[crop.type] = (cropTypeCounts[crop.type] || 0) + 1;
+    myCrops.forEach(crop => {
+        totalQuantity += crop.quantity;
+        totalValue += crop.quantity * crop.pricePerKg;
+        cropTypes[crop.type] = (cropTypes[crop.type] || 0) + 1;
     });
     
-    document.getElementById('totalCropQuantity').textContent = totalCropQuantity;
+    if (document.getElementById('totalMyCrops')) document.getElementById('totalMyCrops').textContent = myCrops.length;
+    if (document.getElementById('totalMyQuantity')) document.getElementById('totalMyQuantity').textContent = totalQuantity;
+    if (document.getElementById('totalMyValue')) document.getElementById('totalMyValue').textContent = totalValue.toLocaleString();
     
-    const avgPrice = crops.length > 0 ? (totalCropValue / totalCropQuantity).toFixed(2) : 0;
-    document.getElementById('avgCropPrice').textContent = avgPrice;
-    
-    // Find most listed crop
-    let mostListedCrop = 'N/A';
+    let mostListed = 'N/A';
     let maxCount = 0;
-    for (let cropType in cropTypeCounts) {
-        if (cropTypeCounts[cropType] > maxCount) {
-            maxCount = cropTypeCounts[cropType];
-            mostListedCrop = cropType;
+    for (let type in cropTypes) {
+        if (cropTypes[type] > maxCount) {
+            maxCount = cropTypes[type];
+            mostListed = type;
         }
     }
-    document.getElementById('mostListedCrop').textContent = mostListedCrop;
+    if (document.getElementById('myMostListed')) document.getElementById('myMostListed').textContent = mostListed;
+}
+
+function loadBuyerReports(currentUser, crops) {
+    // Buyer would see order history, spending, etc.
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const myOrders = orders.filter(o => o.buyer === currentUser.username);
     
-    // Storage Statistics
-    document.getElementById('totalStorageCenters').textContent = storage.length;
+    let totalSpent = 0;
+    let completedOrders = 0;
+    
+    myOrders.forEach(order => {
+        totalSpent += (order.quantity * order.price) || 0;
+        if (order.delivered) completedOrders++;
+    });
+    
+    if (document.getElementById('myTotalOrders')) document.getElementById('myTotalOrders').textContent = myOrders.length;
+    if (document.getElementById('myCompletedOrders')) document.getElementById('myCompletedOrders').textContent = completedOrders;
+    if (document.getElementById('myTotalSpent')) document.getElementById('myTotalSpent').textContent = totalSpent.toLocaleString();
+}
+
+function loadStorageReports(currentUser, storage) {
+    const myStorage = storage.filter(s => s.owner === currentUser.username);
     
     let totalCapacity = 0;
-    let availableCapacity = 0;
+    let usedCapacity = 0;
     
-    storage.forEach(s => {
+    myStorage.forEach(s => {
         totalCapacity += s.capacity;
-        availableCapacity += s.available;
+        usedCapacity += (s.capacity - s.available);
     });
     
-    document.getElementById('totalStorageCapacity').textContent = totalCapacity;
-    document.getElementById('availableStorageCapacity').textContent = availableCapacity;
+    const utilization = totalCapacity > 0 ? (((usedCapacity) / totalCapacity) * 100).toFixed(1) : 0;
     
-    const utilization = totalCapacity > 0 ? 
-        (((totalCapacity - availableCapacity) / totalCapacity) * 100).toFixed(1) : 0;
-    document.getElementById('storageUtilization').textContent = utilization;
+    if (document.getElementById('myStorageCenters')) document.getElementById('myStorageCenters').textContent = myStorage.length;
+    if (document.getElementById('myTotalCapacity')) document.getElementById('myTotalCapacity').textContent = totalCapacity;
+    if (document.getElementById('myUsedCapacity')) document.getElementById('myUsedCapacity').textContent = usedCapacity;
+    if (document.getElementById('myUtilization')) document.getElementById('myUtilization').textContent = utilization;
+}
+
+function loadTransportReports(currentUser, transport) {
+    const myTransport = transport.filter(t => t.provider === currentUser.username);
     
-    // Transport Statistics
-    document.getElementById('totalTransportServices').textContent = transport.length;
+    let totalCapacity = 0;
+    const routes = {};
     
-    let totalTransportCapacity = 0;
-    const routeCounts = {};
-    
-    transport.forEach(t => {
-        totalTransportCapacity += t.capacity;
-        routeCounts[t.route] = (routeCounts[t.route] || 0) + 1;
+    myTransport.forEach(t => {
+        totalCapacity += t.capacity;
+        routes[t.route] = (routes[t.route] || 0) + 1;
     });
     
-    document.getElementById('totalTransportCapacity').textContent = totalTransportCapacity;
-    document.getElementById('activeDeliveries').textContent = Math.floor(transport.length * 0.3); // Simulated
-    
-    // Find most used route
     let mostUsedRoute = 'N/A';
-    maxCount = 0;
-    for (let route in routeCounts) {
-        if (routeCounts[route] > maxCount) {
-            maxCount = routeCounts[route];
+    let maxCount = 0;
+    for (let route in routes) {
+        if (routes[route] > maxCount) {
+            maxCount = routes[route];
             mostUsedRoute = route;
         }
     }
-    document.getElementById('mostUsedRoute').textContent = mostUsedRoute;
     
-    // Financial Statistics (simulated)
-    const totalTransactions = crops.length + transport.length;
-    const totalRevenue = totalCropValue;
-    
-    document.getElementById('totalTransactions').textContent = totalTransactions;
-    document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString();
-    document.getElementById('cashPayments').textContent = Math.floor(totalTransactions * 0.6);
-    document.getElementById('digitalPayments').textContent = Math.floor(totalTransactions * 0.4);
+    if (document.getElementById('myTransportServices')) document.getElementById('myTransportServices').textContent = myTransport.length;
+    if (document.getElementById('myTotalCapacity')) document.getElementById('myTotalCapacity').textContent = totalCapacity;
+    if (document.getElementById('myMostUsedRoute')) document.getElementById('myMostUsedRoute').textContent = mostUsedRoute;
 }
 
 function exportReport(format) {
