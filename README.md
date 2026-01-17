@@ -67,35 +67,7 @@ Agriculture forms the backbone of Pakistan's economy, but farmers face challenge
 
 ### Windows
 
-#### Option 1: Console Application with JSON Persistence 
-
-```bash
-cd backend_cpp
-compile.bat              # Auto-compiles and runs
-```
-
-**Or manually compile and run:**
-
-```powershell
-# PowerShell (Windows)
-cd backend_cpp
-g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp; .\agriconnect.exe
-```
-
-```batch
-CMD/Batch (Windows)
-cd backend_cpp
-g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp && .\agriconnect.exe
-```
-
-#### Option 2: HTTP Backend + Frontend (Full Web Application)
-
-```bash
-start_backend.bat   # Starts C++ backend on http://localhost:8080
-start_frontend.bat  # Starts static frontend on http://localhost:8000
-```
-
-#### Option 3: Manual Setup
+#### Manual Setup for frontend and backend
 
 ```bash
 # Backend (in a new terminal)
@@ -107,15 +79,18 @@ cd ../frontend
 python -m http.server 8000
 ```
 
-#### Option 4: Compile Backend Yourself (MinGW or MSVC)
+**Manually compile and run of backend code:**
 
-```bash
+```powershell
+# PowerShell (Windows)
 cd backend_cpp
-# For console app with JSON persistence:
-g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp
+g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp; .\agriconnect.exe
+```
 
-# For HTTP server:
-g++ -std=c++17 -O2 -o integrated_server.exe integrated_server.cpp -lws2_32 -static-libgcc -static-libstdc++
+```batch
+# CMD/Batch (Windows)
+cd backend_cpp
+g++ -std=c++17 -O2 -o agriconnect.exe agriconnect_simple.cpp && .\agriconnect.exe
 ```
 
 ---
